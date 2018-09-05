@@ -7,15 +7,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Collections.Generic;
 using System.Linq;
 using MoneyWiseAPI.Helper;
+using Microsoft.Extensions.Configuration;
 
 namespace MoneyWiseAPI.Auth
 {
     public class JwtFactory : IJwtFactory
     {
         private readonly JwtIssuerOptions _jwtOptions;
+        public IConfiguration Configuration { get; }
 
-        public JwtFactory(IOptions<JwtIssuerOptions> jwtOptions)
+        public JwtFactory(IOptions<JwtIssuerOptions> jwtOptions, IConfiguration configuration)
         {
+            Configuration = configuration;
             _jwtOptions = jwtOptions.Value;
             ThrowIfInvalidOptions(_jwtOptions);
         }
@@ -49,10 +52,13 @@ namespace MoneyWiseAPI.Auth
 
         public ClaimsIdentity GenerateClaimsIdentity(ApplicationUser user)
         {
+            var defaultPic = Configuration.GetSection("UserSettings")["DefaultPhoto"];
             var currClaims = user.Roles.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
             currClaims.Add(new Claim(Constants.Strings.JwtClaimIdentifiers.Id, user.Id));
             currClaims.Add(new Claim(Constants.Strings.JwtClaimIdentifiers.FullName, $"{user.FirstName} {user.LastName}"));
             currClaims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            currClaims.Add(new Claim(ClaimTypes.Email, user.Email));
+            currClaims.Add(new Claim(Constants.Strings.JwtClaimIdentifiers.Picture, user.Picture?? defaultPic));
             return new ClaimsIdentity(new GenericIdentity(user.UserName, "Token"), currClaims); 
         }
 

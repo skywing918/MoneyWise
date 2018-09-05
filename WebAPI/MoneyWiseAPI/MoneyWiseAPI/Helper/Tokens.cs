@@ -1,4 +1,5 @@
-﻿using MoneyWiseAPI.Auth;
+﻿using Microsoft.Extensions.Configuration;
+using MoneyWiseAPI.Auth;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Security.Claims;
@@ -15,6 +16,7 @@ namespace MoneyWiseAPI.Helper
                 id = identity.Claims.Single(c => c.Type == "id").Value,
                 fullname = identity.Claims.Single(c => c.Type == "fullname").Value,
                 unique_name = userName,
+                picture = identity.Claims.Single(c => c.Type == "picture").Value,
                 roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(r=>r.Value).ToList(),
                 auth_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                 expires_in = (int)jwtOptions.ValidFor.TotalSeconds
