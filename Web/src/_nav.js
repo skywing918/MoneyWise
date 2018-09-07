@@ -1,13 +1,13 @@
 ﻿export default {
     items: [
         {
-            name: '首页',
+            name: '概况',
             url: '/dashboard',
             icon: 'icon-speedometer'
         },
         {
-            name: '交易记录',
-            url: '/system',
+            name: '财务记录',
+            url: '/records',
             icon: 'icon-note'
             
         },
@@ -18,11 +18,20 @@
         },
         {
             name: '账户中心',
-            url: '/account',
+            url: '/accounts',
             icon: 'icon-wallet'
         },
         {
-            name: '报表统计',
+            title: true,
+            name: '财务报表',
+            wrapper: {
+              element: '',
+              attributes: {},
+            },
+            class: ''
+        },
+        {
+            name: '日常收支类',
             url: '/widgets',
             icon: 'icon-speedometer',
             children: [

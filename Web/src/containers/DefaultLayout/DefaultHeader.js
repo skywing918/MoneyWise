@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { Badge, Button, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -44,6 +44,9 @@ class DefaultHeader extends Component {
           </Nav>
         }
         <Nav className="ml-auto" navbar >
+          <Button color="ghost-success p-0" size="sm">
+            <i className="fa fa-plus-square-o"></i>&nbsp;记一笔
+          </Button>
           <DefaultHeaderDropdown notif />
           <DefaultHeaderDropdown tasks />
           <DefaultHeaderDropdown mssgs />

@@ -37,6 +37,10 @@ const Accounts = Loadable({
     loading: Loading,
 });
 
+const Records = Loadable({
+  loader: () => import('./views/Records/Records'),
+  loading: Loading,
+});
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
@@ -48,7 +52,8 @@ const routes = [
   { path: '/system/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/system/userscreate', exact: true, name: 'Create User', component: CreateUser },
     
-  { path: '/account', name: '账户中心', component: Accounts },
+  { path: '/accounts', name: '账户中心', component: Accounts },
+  { path: '/records', name: '财务记录', component: Records },
 ];
 
 export default routes;

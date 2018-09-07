@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
+import { 
+  CardTitle,
+  Button,
+  ButtonDropdown,
+  ButtonGroup,
+  ButtonToolbar,Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
 import { Bar, Doughnut, Line, Pie, Polar, Radar } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
@@ -63,7 +68,8 @@ class Charts extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      activeTab: 0
+      activeTab: 0,
+      radioSelected: 2
     };
   }
 
@@ -73,6 +79,12 @@ class Charts extends Component {
         activeTab: tab
       });
     }
+  }
+
+  onRadioBtnClick(radioSelected) {
+    this.setState({
+      radioSelected: radioSelected,
+    });
   }
 
   render() {
@@ -90,39 +102,78 @@ class Charts extends Component {
                   <ListGroupItem onClick={() => this.toggle(1)} action active={this.state.activeTab === 1} >当月收/支构成</ListGroupItem>
                   <ListGroupItem onClick={() => this.toggle(2)} action active={this.state.activeTab === 2} >可用资金构成</ListGroupItem>
                   <ListGroupItem onClick={() => this.toggle(3)} action active={this.state.activeTab === 3} >债权债务构成</ListGroupItem>
+                  <ListGroupItem onClick={() => this.toggle(4)} action active={this.state.activeTab === 4} >资产构成</ListGroupItem>
                 </ListGroup>
               </Col>
               <Col xs="10">
                 <TabContent activeTab={this.state.activeTab}>
                   <TabPane tabId={0} >
+                    <Row>
+                      <Col sm="12" className="d-none d-sm-inline-block">
+                        <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
+                          <ButtonGroup className="mr-3" aria-label="First group">
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>按月</Button>
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>按季</Button>
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>按年</Button>
+                          </ButtonGroup>
+                        </ButtonToolbar>
+                      </Col>
+                    </Row>
+                    <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
                     <Bar data={bar} options={options} />
+                    </div>
+                    
                   </TabPane>
                   <TabPane tabId={1}>
                     <Row>
+                      <Col sm="12" className="d-none d-sm-inline-block">
+                        <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
+                          <ButtonGroup className="mr-3" aria-label="First group">
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>本月</Button>
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>本季</Button>
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>本年</Button>
+                          </ButtonGroup>
+                        </ButtonToolbar>
+                      </Col>
+                    </Row>
+                    <Row className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
                       <Col xs="6">
-                        <Doughnut data={doughnut} />
+                        <Doughnut data={doughnut}  height={210}/>
                       </Col>
                       <Col xs="6">
-                        <Doughnut data={doughnut} />
+                        <Doughnut data={doughnut}  height={210}/>
                       </Col>
                     </Row>
                   </TabPane>
                   <TabPane tabId={2}>
-                    <p>Ut ut do pariatur aliquip aliqua aliquip exercitation do nostrud commodo reprehenderit aute ipsum voluptate. Irure Lorem et laboris
-                      nostrud amet cupidatat cupidatat anim do ut velit mollit consequat enim tempor. Consectetur
-                      est minim nostrud nostrud consectetur irure labore voluptate irure. Ipsum id Lorem sit sint voluptate est pariatur eu ad cupidatat et
-                      deserunt culpa sit eiusmod deserunt. Consectetur et fugiat anim do eiusmod aliquip nulla
-                          laborum elit adipisicing pariatur cillum.</p>
+                    <div className="chart-wrapper" style={{ height: 335 + 'px', marginTop: 40 + 'px'}}>
+                      <Doughnut data={doughnut}  height={120}/>
+                    </div>
                   </TabPane>
                   <TabPane tabId={3}>
-                    <Row>
-                      <Col xs="6">
-                        <Doughnut data={doughnut} />
-                      </Col>
-                      <Col xs="6">
-                        <Doughnut data={doughnut} />
+                  <Row>
+                      <Col sm="12" className="d-none d-sm-inline-block">
+                        <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
+                          <ButtonGroup className="mr-3" aria-label="First group">
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>按款项</Button>
+                            <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>按人员</Button>
+                          </ButtonGroup>
+                        </ButtonToolbar>
                       </Col>
                     </Row>
+                    <Row className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                      <Col xs="6">
+                        <Doughnut data={doughnut}  height={210}/>
+                      </Col>
+                      <Col xs="6">
+                        <Doughnut data={doughnut}  height={210}/>
+                      </Col>
+                    </Row>
+                  </TabPane>
+                  <TabPane tabId={4}>
+                    <div className="chart-wrapper" style={{ height: 335 + 'px', marginTop: 40 + 'px'}}>
+                      <Doughnut data={doughnut}  height={120}/>
+                    </div>
                   </TabPane>
                 </TabContent>
               </Col>
