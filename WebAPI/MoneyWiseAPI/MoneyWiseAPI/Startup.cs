@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using AspNetCore.Identity.Mongo;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -101,7 +103,7 @@ namespace MoneyWiseAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             // global cors policy
             app.UseCors(x => x
@@ -120,6 +122,46 @@ namespace MoneyWiseAPI
                 app.UseHsts();
             }
             app.UseMvc();
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            //adding custom roles
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Admin" };
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                //creating the roles and seeding them to the database
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new ApplicationRole(roleName));
+                }
+            }
+            //creating a super user who could maintain the web app
+            var poweruser = new ApplicationUser()
+            {
+                UserName = Configuration.GetSection("UserSettings")["UserName"],
+                FirstName = Configuration.GetSection("UserSettings")["FirstName"],
+                LastName = Configuration.GetSection("UserSettings")["LastName"],
+                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+            };
+
+            string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
+            var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("UserSettings")["UserEmail"]);
+            if (_user == null)
+            {
+                var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    //here we tie the new user to the "Admin" role 
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+                }
+            }
         }
     }
 }

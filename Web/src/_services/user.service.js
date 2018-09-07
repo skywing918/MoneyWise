@@ -28,6 +28,10 @@ function login(username, password) {
         .then(user => {
             // login successful if there's a jwt token in the response
             if (user.auth_token) {
+                if(user.roles&&user.roles.includes("ADMIN"))
+                {
+                    user.isAdmin = true;
+                }
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
             }
