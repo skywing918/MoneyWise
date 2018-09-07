@@ -8,7 +8,7 @@ namespace MoneyWiseAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class AccountBooksController : ControllerBase
     {
         // GET api/values
         [HttpGet]

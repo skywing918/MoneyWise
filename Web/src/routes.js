@@ -12,6 +12,11 @@ const Dashboard = Loadable({
   loading: Loading,
 });
 
+const SystemDashboard = Loadable({
+    loader: () => import('./views/System/Dashboard'),
+    loading: Loading,
+  });
+
 const Users = Loadable({
   loader: () => import('./views/System/Users/Users'),
   loading: Loading,
@@ -35,6 +40,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 
   { path: '/system', exact: true, name: 'System', component: Users },
+  { path: '/system/dashboard', exact: true, name: 'Dashboard', component: SystemDashboard },
   { path: '/system/users', exact: true,  name: 'Users', component: Users },
   { path: '/system/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/system/userscreate', exact: true, name: 'Create User', component: CreateUser },

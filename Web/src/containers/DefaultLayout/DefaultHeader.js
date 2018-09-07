@@ -30,17 +30,19 @@ class DefaultHeader extends Component {
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-        <Nav className="d-md-down-none" navbar>
-          <NavItem className="px-3">
-            <NavLink href="/">Dashboard</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#/users">Users</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#">Settings</NavLink>
-          </NavItem>
-        </Nav>
+        {user.isAdmin &&
+          <Nav className="d-md-down-none" navbar>
+            <NavItem className="px-3">
+              <NavLink href="/system/dashboard">Dashboard</NavLink>
+            </NavItem>
+            <NavItem className="px-3">
+              <NavLink href="/system/users">Users</NavLink>
+            </NavItem>
+            <NavItem className="px-3">
+              <NavLink href="#">Settings</NavLink>
+            </NavItem>
+          </Nav>
+        }
         <Nav className="ml-auto" navbar style={{ paddingRight: '20px' }}>
           <DefaultHeaderDropdown notif />
           <DefaultHeaderDropdown tasks />

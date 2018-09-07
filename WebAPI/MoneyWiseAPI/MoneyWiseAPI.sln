@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyWiseAPI", "MoneyWiseAPI\MoneyWiseAPI.csproj", "{BECFDED4-340D-4D22-A01F-50D65488EE56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyWiseCommon", "MoneyWiseCommon\MoneyWiseCommon.csproj", "{241DAB10-419C-44B5-913E-292A93A2D600}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyWiseUnitTest", "MoneyWiseUnitTest\MoneyWiseUnitTest.csproj", "{EA5C3E05-DADA-4F43-982B-21E2D273D8FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BECFDED4-340D-4D22-A01F-50D65488EE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BECFDED4-340D-4D22-A01F-50D65488EE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BECFDED4-340D-4D22-A01F-50D65488EE56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{241DAB10-419C-44B5-913E-292A93A2D600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{241DAB10-419C-44B5-913E-292A93A2D600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{241DAB10-419C-44B5-913E-292A93A2D600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{241DAB10-419C-44B5-913E-292A93A2D600}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA5C3E05-DADA-4F43-982B-21E2D273D8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA5C3E05-DADA-4F43-982B-21E2D273D8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA5C3E05-DADA-4F43-982B-21E2D273D8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA5C3E05-DADA-4F43-982B-21E2D273D8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

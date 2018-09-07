@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Identity.Mongo;
+using System.Collections.Generic;
 
 namespace MoneyWiseAPI
 {
@@ -10,5 +11,7 @@ namespace MoneyWiseAPI
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Picture { get; set; }
+
+        public List<string> BookIds { get; set; }
     }
 }
