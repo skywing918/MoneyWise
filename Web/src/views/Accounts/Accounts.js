@@ -74,7 +74,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>现金</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleCash} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleCash} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.cash} toggle={this.toggleCash} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleCash}>Modal title</ModalHeader>
                                 <ModalBody>
@@ -100,7 +100,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>活期</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleCurrent} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleCurrent} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.current} toggle={this.toggleCurrent} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleCurrent}>Modal title</ModalHeader>
                                 <ModalBody>
@@ -130,7 +130,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>信用卡</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleCreditCard} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleCreditCard} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.creditCard} toggle={this.toggleCreditCard} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleCreditCard}>Modal title</ModalHeader>
                                 <ModalBody>
@@ -156,7 +156,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>第三方储蓄</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleThirdParty} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleThirdParty} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.thirdparty} toggle={this.toggleThirdParty} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleThirdParty}>Modal title</ModalHeader>
                                 <ModalBody>
@@ -182,7 +182,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>借入款</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleLiabilities} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleLiabilities} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.liabilities} toggle={this.toggleLiabilities} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleLiabilities}>Modal title</ModalHeader>
                                 <ModalBody>
@@ -208,7 +208,7 @@ class Accounts extends Component {
                     <CardHeader>
                         <strong>借出款</strong>
                         <div className="card-header-actions">
-                            <Button onClick={this.toggleClaims} className="mr-1">Launch demo modal</Button>
+                            <Button onClick={this.toggleClaims} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                             <Modal isOpen={this.state.claims} toggle={this.toggleClaims} className={this.props.className}>
                                 <ModalHeader toggle={this.toggleClaims}>Modal title</ModalHeader>
                                 <ModalBody>

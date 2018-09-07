@@ -43,13 +43,13 @@ class DefaultHeader extends Component {
             </NavItem>
           </Nav>
         }
-        <Nav className="ml-auto" navbar style={{ paddingRight: '20px' }}>
+        <Nav className="ml-auto" navbar >
           <DefaultHeaderDropdown notif />
           <DefaultHeaderDropdown tasks />
           <DefaultHeaderDropdown mssgs />
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
-              <img src={user.picture} className="img-avatar" alt="admin@bootstrapmaster.com" />
+              <img src={user.picture} className="img-avatar" alt={user.email} />
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
