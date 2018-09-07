@@ -18,8 +18,8 @@
         },
         {
             name: '账户中心',
-            url: '/charts',
-            icon: 'icon-notebook'
+            url: '/account',
+            icon: 'icon-wallet'
         },
         {
             name: '报表统计',
@@ -40,6 +40,7 @@
                 {
                     name: '分类管理',
                     url: '/notifications/alerts',
+                    icon: 'icon-social-dropbox',
                 }
             ],
         },

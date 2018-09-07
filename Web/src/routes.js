@@ -15,7 +15,7 @@ const Dashboard = Loadable({
 const SystemDashboard = Loadable({
     loader: () => import('./views/System/Dashboard'),
     loading: Loading,
-  });
+});
 
 const Users = Loadable({
   loader: () => import('./views/System/Users/Users'),
@@ -32,7 +32,10 @@ const CreateUser = Loadable({
     loading: Loading,
 });
 
-
+const Accounts = Loadable({
+    loader: () => import('./views/Accounts/Accounts'),
+    loading: Loading,
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -45,6 +48,7 @@ const routes = [
   { path: '/system/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/system/userscreate', exact: true, name: 'Create User', component: CreateUser },
     
+  { path: '/account', name: '账户中心', component: Accounts },
 ];
 
 export default routes;
