@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using AspNetCore.Identity.Mongo;
-using AspNetCore.MongoDB;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -82,7 +81,6 @@ namespace MoneyWiseAPI
 
             // Register identity framework services and also Mongo storage. 
             var connectionString = Configuration.GetSection("MongoDb")["ConnectionString"];
-            services.Configure<MongoDBOption>(Configuration.GetSection("MongoDBOption")).AddMongoDatabase();
 
             services.AddMongoIdentityProvider<ApplicationUser, ApplicationRole>(connectionString, options =>
             {
