@@ -9,7 +9,7 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 const bar = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August'],
   datasets: [
     {
       label: '收入',
@@ -18,7 +18,7 @@ const bar = {
       borderWidth: 1,
       hoverBackgroundColor: 'rgba(255,99,132,0.4)',
       hoverBorderColor: 'rgba(255,99,132,1)',
-      data: [4000, 59, 80, 81, 56, 55, 40],
+      data: [4000, 59, 80, 81, 56, 55, 40, 2000],
     },
     {
       label: '支出',
@@ -27,7 +27,7 @@ const bar = {
       borderWidth: 1,
       hoverBackgroundColor: 'rgba(0,255,132,0.4)',
       hoverBorderColor: 'rgba(0,255,132,1)',
-      data: [650, 59, 80, 81, 56, 90, 20],
+      data: [650, 59, 80, 81, 56, 90, 20, 1000],
     },
   ],
 };

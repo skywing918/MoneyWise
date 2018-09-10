@@ -14,6 +14,10 @@ function getColor(total) {
   return total > 0 ? 'success' : 'danger';
 }
 
+function currencyFormater(price){
+  return price.toFixed(2).toLocaleString();
+}
+
 function AccountRow(props) {
   const account = props.account
   const calloutClasses = classNames('callout', 'callout-' + getColor(account.total));
@@ -25,7 +29,7 @@ function AccountRow(props) {
         <br />
         <small className="text-muted">人民币|{account.owner}</small>
         <div className="card-header-actions pr-4">
-          <div className={totalClasses}>{account.total}</div>
+          <div className={totalClasses}>{currencyFormater(account.total)}</div>
         </div>
       </div>
     </Col>
@@ -41,7 +45,7 @@ class CardAccount extends Component {
       <Card>
         <CardHeader>
           <strong>{accounts.name}</strong>
-          <div className="card-header-actions"><div className={totalClasses}>{accounts.total}</div></div>
+          <div className="card-header-actions"><div className={totalClasses}>{currencyFormater(accounts.total)}</div></div>
         </CardHeader>
         <CardBody className="p-0 pl-5">
           {accountList.map((account, index) =>

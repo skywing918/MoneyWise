@@ -11,6 +11,16 @@ function dateTimeFormatter(cell, row) {
     );
 }
 
+function accountFormatter(cell, row) {
+    let baseAccount = row.incomeAccount||row.outgoAccount;
+    if(row.incomeAccount && row.outgoAccount) {
+        baseAccount=row.incomeAccount+' to '+row.outgoAccount
+    }
+    return (
+        <span>{baseAccount}</span>
+    );
+}
+
 function modalFormatter(cell, row, c, toggle) {
     return (
         <span><Button color="danger" onClick={() => toggle(row)}>查看</Button></span>
@@ -54,56 +64,33 @@ class Records extends Component {
         const logList = logsData;//.filter((log) => log.id < 7)
         const columns = [
             {
-                dataField: 'registered',
+                dataField: 'createdDate',
                 text: '日期',
                 formatter: dateTimeFormatter
             },
             {
-                dataField: 'action',
+                dataField: 'type',
                 text: '活动类型'
             },
             {
-                dataField: 'model',
-                text: '操作模块'
+                dataField: 'income',
+                text: '收入'
             },
             {
-                dataField: 'detail',
-                text: '操作内容'
+                dataField: 'outgo',
+                text: '支出'
             },
             {
-                dataField: 'user',
-                text: '操作人'
+                dataField: '',
+                text: '账户',
+                formatter: accountFormatter
             },
-
             {
                 dataField: '',
                 text: '操作',
                 formatter: modalFormatter,
                 formatExtraData: this.toggle
             }];
-        const options = {
-            paginationSize: 6,
-            pageStartIndex: 1,
-            // alwaysShowAllBtns: true, // Always show next and previous button
-            //withFirstAndLast: false, // Hide the going to First and Last page button
-            hideSizePerPage: true, // Hide the sizePerPage dropdown always
-            //hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-            firstPageText: 'First',
-            prePageText: 'Back',
-            nextPageText: 'Next',
-            lastPageText: 'Last',
-            nextPageTitle: 'First page',
-            prePageTitle: 'Pre page',
-            firstPageTitle: 'Next page',
-            lastPageTitle: 'Last page',
-            showTotal: true,
-            paginationTotalRenderer: customTotal,
-            sizePerPageList: [{
-                text: '6', value: 6
-            }, {
-                text: '10', value: 10
-            }] // A numeric array is also available. the purpose of above example is custom the text
-        };
         return (
             <div className="animated fadeIn">
             <Row>
@@ -136,10 +123,10 @@ class Records extends Component {
               <CardFooter>
                 <Row className="text-center">
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">流出：<strong>100,000.00</strong></div>
+                    <div className="text-muted">流出：<strong className="text-success">100,000.00</strong></div>
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">流入：<strong>200.00</strong></div>
+                    <div className="text-muted">流入：<strong className="text-danger">200.00</strong></div>
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
                     <div className="text-muted">差额：<strong>98,000.00</strong></div>
