@@ -1,76 +1,50 @@
 import React, { Component } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
 import {
-    Badge,
     Button,
     Card,
     CardBody,
     CardHeader,
-    Table,
     Col,
     Row,
-    ListGroup,
-    ListGroupItem,
     Modal, ModalBody, ModalFooter, ModalHeader
 } from 'reactstrap';
+import CardAccount from './CardAccount';
 
 class Accounts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cash: false,
-            creditCard: false,
-            toggleCurrent: false,
-            thirdparty: false,
-            claims: false,
-            liabilities: false,
+            create: false
         };
-        this.toggleCash = this.toggleCash.bind(this);
-        this.toggleCreditCard = this.toggleCreditCard.bind(this);
-        this.toggleCurrent = this.toggleCurrent.bind(this);
-        this.toggleThirdParty = this.toggleThirdParty.bind(this);
-        this.toggleClaims = this.toggleClaims.bind(this);
-        this.toggleLiabilities = this.toggleLiabilities.bind(this);
+        this.toggleNew = this.toggleNew.bind(this);
     }
-    toggleCash() {
+    
+    toggleNew() {
         this.setState({
-            cash: !this.state.cash,
+            create: !this.state.create,
         });
     }
-
-    toggleCreditCard() {
-        this.setState({
-            creditCard: !this.state.creditCard,
-        });
-    }
-
-    toggleCurrent() {
-        this.setState({
-            current: !this.state.current,
-        });
-    }
-
-    toggleThirdParty() {
-        this.setState({
-            thirdparty: !this.state.thirdparty,
-        });
-    }
-
-    toggleClaims() {
-        this.setState({
-            claims: !this.state.claims,
-        });
-    }
-
-    toggleLiabilities() {
-        this.setState({
-            liabilities: !this.state.liabilities,
-        });
-    }
-
 
     render() {
+        const cardList = [
+            {
+                name:'活期',
+                total:'-400', 
+                accountList: [
+                    { id: 0, title: '他的活期', owner: 'Kyle', total: '100' },
+                    { id: 1, title: '我的活期', owner: 'aniv', total: '-500' }
+                ]
+            },
+            {
+                name:'卡',
+                total:'1,000', 
+                accountList: [
+                    { id: 0, title: '招行卡', owner: 'Kyle', total: '1500' },
+                    { id: 1, title: '农行卡', owner: 'aniv', total: '-500' }
+                ]
+            }
 
+        ]
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -79,9 +53,9 @@ class Accounts extends Component {
                             <CardHeader>
                                 Traffic {' & '} Sales
                                 <div className="card-header-actions">
-                                    <Button onClick={this.toggleCurrent} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
-                                    <Modal isOpen={this.state.current} toggle={this.toggleCurrent} className={this.props.className}>
-                                        <ModalHeader toggle={this.toggleCurrent}>Modal title</ModalHeader>
+                                    <Button onClick={this.toggleNew} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
+                                    <Modal isOpen={this.state.create} toggle={this.toggleNew} className={this.props.className}>
+                                        <ModalHeader toggle={this.toggleNew}>Modal title</ModalHeader>
                                         <ModalBody>
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                                             et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -90,41 +64,16 @@ class Accounts extends Component {
                                             culpa qui officia deserunt mollit anim id est laborum.
                                 </ModalBody>
                                         <ModalFooter>
-                                            <Button color="primary" onClick={this.toggleCurrent}>Do Something</Button>{' '}
-                                            <Button color="secondary" onClick={this.toggleCurrent}>Cancel</Button>
+                                            <Button color="primary" onClick={this.toggleNew}>Do Something</Button>{' '}
+                                            <Button color="secondary" onClick={this.toggleNew}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </div>
                             </CardHeader>
                             <CardBody >
-                                <Card>
-                                    <CardHeader>
-                                        <strong>活期</strong>
-                                        <div className="card-header-actions pr-4">1000</div>
-                                    </CardHeader>
-                                    <CardBody className="p-0 pl-5">
-                                        <Col sm="12">
-                                            <div className="callout callout-success">
-                                                <strong className="h4">现金</strong>
-                                                <br />
-                                                <small className="text-muted">人民币|张三</small>
-                                                <div className="card-header-actions pr-4">
-                                                    123
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col sm="12">
-                                            <div className="callout callout-success">
-                                                <strong className="h4">现金</strong>
-                                                <br />
-                                                <small className="text-muted">人民币|张三</small>
-                                                <div className="card-header-actions pr-4">
-                                                    123
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </CardBody>
-                                </Card>
+                            {cardList.map((accounts, index) =>
+                                <CardAccount accounts={accounts}/>
+                            )}
                             </CardBody>
                         </Card>
                     </Col>

@@ -5,7 +5,7 @@ import {
   ButtonDropdown,
   ButtonGroup,
   ButtonToolbar,Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
-import { Bar, Doughnut, Line, Pie, Polar, Radar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 const bar = {
@@ -119,7 +119,7 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                    <div className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
                     <Bar data={bar} options={options} />
                     </div>
                     
@@ -136,18 +136,18 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <Row className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                    <Row className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
                       <Col xs="6">
-                        <Doughnut data={doughnut}  height={210}/>
+                        <Doughnut data={doughnut}  height={170}/>
                       </Col>
                       <Col xs="6">
-                        <Doughnut data={doughnut}  height={210}/>
+                        <Doughnut data={doughnut}  height={170}/>
                       </Col>
                     </Row>
                   </TabPane>
                   <TabPane tabId={2}>
-                    <div className="chart-wrapper" style={{ height: 335 + 'px', marginTop: 40 + 'px'}}>
-                      <Doughnut data={doughnut}  height={120}/>
+                    <div className="chart-wrapper" style={{ height: 315 + 'px', marginTop: 40 + 'px'}}>
+                      <Doughnut data={doughnut}  height={90}/>
                     </div>
                   </TabPane>
                   <TabPane tabId={3}>
@@ -161,18 +161,18 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <Row className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
+                    <Row className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
                       <Col xs="6">
-                        <Doughnut data={doughnut}  height={210}/>
+                        <Doughnut data={doughnut}  height={170}/>
                       </Col>
                       <Col xs="6">
-                        <Doughnut data={doughnut}  height={210}/>
+                        <Doughnut data={doughnut}  height={170}/>
                       </Col>
                     </Row>
                   </TabPane>
                   <TabPane tabId={4}>
-                    <div className="chart-wrapper" style={{ height: 335 + 'px', marginTop: 40 + 'px'}}>
-                      <Doughnut data={doughnut}  height={120}/>
+                    <div className="chart-wrapper" style={{ height: 315 + 'px', marginTop: 40 + 'px'}}>
+                      <Doughnut data={doughnut}  height={90}/>
                     </div>
                   </TabPane>
                 </TabContent>

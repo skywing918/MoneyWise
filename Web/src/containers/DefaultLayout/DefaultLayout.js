@@ -51,7 +51,7 @@ class DefaultLayout extends Component {
                         </Container>
                     </main>
                 </div>
-                <AppFooter>
+                <AppFooter >
                     <DefaultFooter />
                 </AppFooter>
             </div>
