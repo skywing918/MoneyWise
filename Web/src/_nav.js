@@ -13,7 +13,7 @@
         },
         {
             name: '投资一览',
-            url: '/customers',
+            url: '/investments',
             icon: 'icon-list'
         },
         {

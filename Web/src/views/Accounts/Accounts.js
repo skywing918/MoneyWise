@@ -68,17 +68,17 @@ class Accounts extends Component {
                 name:'活期',
                 total:-400, 
                 accountList: [
-                    { id: 0, title: '他的活期', owner: 'Kyle', total: 100 },
-                    { id: 1, title: '我的活期', owner: 'aniv', total: -500 }
+                    { id: 1, title: '他的活期', owner: 'Kyle', total: 100 },
+                    { id: 2, title: '我的活期', owner: 'aniv', total: -500 }
                 ]
             },
             {
-                id:1,
+                id:3,
                 name:'卡',
                 total:1000, 
                 accountList: [
-                    { id: 0, title: '招行卡', owner: 'Kyle', total: 1500 },
-                    { id: 1, title: '农行卡', owner: 'aniv', total: -500 }
+                    { id: 4, title: '招行卡', owner: 'Kyle', total: -1500 },
+                    { id: 5, title: '农行卡', owner: 'aniv', total: 500 }
                 ]
             }
 

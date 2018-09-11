@@ -119,7 +119,7 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <div className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
+                    <div className="chart-wrapper" style={{ height: 275 + 'px', marginTop: 5 + 'px' }}>
                     <Bar data={bar} options={options} />
                     </div>
                     
@@ -136,7 +136,7 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <Row className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
+                    <Row className="chart-wrapper" style={{ height: 275 + 'px', marginTop: 5 + 'px' }}>
                       <Col xs="6">
                         <Doughnut data={doughnut}  height={170}/>
                       </Col>
@@ -146,7 +146,7 @@ class Charts extends Component {
                     </Row>
                   </TabPane>
                   <TabPane tabId={2}>
-                    <div className="chart-wrapper" style={{ height: 315 + 'px', marginTop: 40 + 'px'}}>
+                    <div className="chart-wrapper" style={{ height: 310 + 'px', marginTop: 5 + 'px'}}>
                       <Doughnut data={doughnut}  height={90}/>
                     </div>
                   </TabPane>
@@ -161,7 +161,7 @@ class Charts extends Component {
                         </ButtonToolbar>
                       </Col>
                     </Row>
-                    <Row className="chart-wrapper" style={{ height: 280 + 'px', marginTop: 40 + 'px' }}>
+                    <Row className="chart-wrapper" style={{ height: 275 + 'px', marginTop: 5 + 'px' }}>
                       <Col xs="6">
                         <Doughnut data={doughnut}  height={170}/>
                       </Col>
@@ -171,7 +171,7 @@ class Charts extends Component {
                     </Row>
                   </TabPane>
                   <TabPane tabId={4}>
-                    <div className="chart-wrapper" style={{ height: 315 + 'px', marginTop: 40 + 'px'}}>
+                    <div className="chart-wrapper" style={{ height: 310 + 'px', marginTop: 5 + 'px'}}>
                       <Doughnut data={doughnut}  height={90}/>
                     </div>
                   </TabPane>

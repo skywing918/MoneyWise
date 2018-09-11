@@ -1,5 +1,15 @@
 .AppLoader {
-  text-align: center; }
+  text-align: center; 
+}
+.table-hover tbody tr .accountMenu{
+  display:none;
+} 
+.table-hover tbody tr:hover .accountMenu{
+  display:block;
+} 
+.investments-header-class {
+  background-color:#f6f8fa;
+}
 
   svg {
     width: 100%;

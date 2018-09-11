@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, Col, CardHeader } from 'reactstrap';
+import { Table } from 'reactstrap';
 import classNames from 'classnames';
 
 const propTypes = {
@@ -8,31 +8,39 @@ const propTypes = {
 };
 
 const defaultProps = {
-  account:[]
+  account: []
 };
 function getColor(total) {
   return total > 0 ? 'success' : 'danger';
 }
 
-function currencyFormater(price){
+function currencyFormater(price) {
   return price.toFixed(2).toLocaleString();
 }
 
 function AccountRow(props) {
   const account = props.account
   const calloutClasses = classNames('callout', 'callout-' + getColor(account.total));
-  const totalClasses = classNames('h5', 'text-' + getColor(account.total));
+  const totalClasses = classNames('text-' + getColor(account.total));
+
   return (
-    <Col sm="12">
-      <div className={calloutClasses}>
-        <strong className="h4">{account.title}</strong>
-        <br />
-        <small className="text-muted">人民币|{account.owner}</small>
-        <div className="card-header-actions pr-4">
-          <div className={totalClasses}>{currencyFormater(account.total)}</div>
+    <tr >
+      <td ></td>
+      <td className="p-0">
+        <div className={calloutClasses}>
+          <div>{account.title}</div>
+          <div className="small text-muted">
+            <span>人民币</span> | {account.owner}
+          </div>
         </div>
-      </div>
-    </Col>
+      </td>
+      <td className={totalClasses}>
+        <strong>{currencyFormater(account.total)}</strong>
+      </td>
+      <td >
+        <div className="accountMenu">修改 | 删除</div>
+      </td>
+    </tr>
   )
 }
 
@@ -40,19 +48,23 @@ class CardAccount extends Component {
   render() {
     const { accounts } = this.props;
     const accountList = accounts.accountList;
-    const totalClasses = classNames('pr-4', 'h5', 'text-' + getColor(accounts.total));
+    const totalClasses = classNames('text-' + getColor(accounts.total));
     return (
-      <Card>
-        <CardHeader>
-          <strong>{accounts.name}</strong>
-          <div className="card-header-actions"><div className={totalClasses}>{currencyFormater(accounts.total)}</div></div>
-        </CardHeader>
-        <CardBody className="p-0 pl-5">
+      <Table hover responsive className="table-outline mb-3 d-none d-sm-table">
+        <thead className="thead-light">
+          <tr>
+            <th style={{ width: 10 + '%' }}>{accounts.name}</th>
+            <th style={{ width: 75 + '%' }}></th>
+            <th className={totalClasses}>{currencyFormater(accounts.total)}</th>
+            <th style={{ width: 10 + '%' }}></th>
+          </tr>
+        </thead>
+        <tbody>
           {accountList.map((account, index) =>
             <AccountRow key={index} account={account} />
           )}
-        </CardBody>
-      </Card>
+        </tbody>
+      </Table>
     );
   }
 }
