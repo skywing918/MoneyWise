@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Badge, Button, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import DefaultHeaderDropdown from './DefaultHeaderDropdown'
 import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
@@ -44,29 +43,11 @@ class DefaultHeader extends Component {
           </Nav>
         }
         <Nav className="ml-auto" navbar >
-          <Button color="ghost-success p-0" size="sm">
-            <i className="fa fa-plus-square-o"></i>&nbsp;记一笔
-          </Button>
+          
+          <DefaultHeaderDropdown newrecord />
           <DefaultHeaderDropdown notif />
           <DefaultHeaderDropdown tasks />
-          <DefaultHeaderDropdown mssgs />
-          <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
-              <img src={user.picture} className="img-avatar" alt={user.email} />
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
-              <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-              <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-              <DropdownItem><Link to="/login"><i className="fa fa-lock"></i> Logout</Link></DropdownItem>
-            </DropdownMenu>
-          </AppHeaderDropdown>
+          <DefaultHeaderDropdown accnt />
         </Nav>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>

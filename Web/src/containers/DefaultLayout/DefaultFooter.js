@@ -16,7 +16,7 @@ class DefaultFooter extends Component {
     return (
       <React.Fragment>
         <span>Money Wise &copy; 2018.</span>
-        <span className="ml-auto">Powered by Money Wise for React</span>
+        <span className="ml-auto">Powered by <a href="https://github.com/skywing918">Money Wise for React</a></span>
       </React.Fragment>
     );
   }

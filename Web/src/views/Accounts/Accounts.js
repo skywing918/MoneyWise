@@ -64,6 +64,7 @@ class Accounts extends Component {
         const { account, submitted } = this.state;
         const cardList = [
             {
+                id:0,
                 name:'活期',
                 total:-400, 
                 accountList: [
@@ -72,6 +73,7 @@ class Accounts extends Component {
                 ]
             },
             {
+                id:1,
                 name:'卡',
                 total:1000, 
                 accountList: [
@@ -140,7 +142,7 @@ class Accounts extends Component {
                             </CardHeader>
                             <CardBody >
                             {cardList.map((accounts, index) =>
-                                <CardAccount accounts={accounts}/>
+                                <CardAccount accounts={accounts} key={index}/>
                             )}
                             </CardBody>
                         </Card>

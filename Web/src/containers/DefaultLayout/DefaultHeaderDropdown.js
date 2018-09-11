@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Progress } from 'reactstrap';
+import { Badge, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Progress } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const propTypes = {
   notif: PropTypes.bool,
   accnt: PropTypes.bool,
   tasks: PropTypes.bool,
-  mssgs: PropTypes.bool,
+  newrecord: PropTypes.bool,
 };
 const defaultProps = {
   notif: false,
   accnt: false,
   tasks: false,
-  mssgs: false,
+  newrecord: false,
 };
 
 class DefaultHeaderDropdown extends Component {
@@ -32,6 +34,13 @@ class DefaultHeaderDropdown extends Component {
     });
   }
 
+  pupUpNewRecord() {
+    return (
+      <Button color="ghost-success p-0" size="sm">
+        <i className="fa fa-plus-square-o"></i>&nbsp;记一笔
+      </Button>
+    );
+  }
   dropNotif() {
     const itemsCount = 5;
     return (
@@ -74,25 +83,22 @@ class DefaultHeaderDropdown extends Component {
   }
 
   dropAccnt() {
+    const { user } = this.props;
     return (
       <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle nav>
-          <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+          <img src={user.picture} className="img-avatar" alt={user.email} />
         </DropdownToggle>
-        <DropdownMenu right>
+        <DropdownMenu right style={{ right: 'auto' }}>
           <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-          <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem>
           <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
           <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
           <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
           <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
           <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-          <DropdownItem><i className="fa fa-usd"></i> Payments<Badge color="secondary">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
           <DropdownItem divider />
           <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-          <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
+          <DropdownItem><Link to="/login"><i className="fa fa-lock"></i> Logout</Link></DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
@@ -110,28 +116,23 @@ class DefaultHeaderDropdown extends Component {
           <DropdownItem>
             <div className="small mb-1">Upgrade NPM &amp; Bower <span
               className="float-right"><strong>0%</strong></span></div>
-            <Progress className="progress-xs" color="info" value={0} />
           </DropdownItem>
           <DropdownItem>
             <div className="small mb-1">ReactJS Version <span className="float-right"><strong>25%</strong></span>
             </div>
-            <Progress className="progress-xs" color="danger" value={25} />
           </DropdownItem>
           <DropdownItem>
             <div className="small mb-1">VueJS Version <span className="float-right"><strong>50%</strong></span>
             </div>
-            <Progress className="progress-xs" color="warning" value={50} />
           </DropdownItem>
           <DropdownItem>
             <div className="small mb-1">Add new layouts <span className="float-right"><strong>75%</strong></span>
             </div>
-            <Progress className="progress-xs" color="info" value={75} />
           </DropdownItem>
           <DropdownItem>
             <div className="small mb-1">Angular 2 Cli Version <span className="float-right"><strong>100%</strong></span></div>
-            <Progress className="progress-xs" color="success" value={100} />
           </DropdownItem>
-          <DropdownItem className="text-center"><strong>View all tasks</strong></DropdownItem>
+          <DropdownItem className="text-center"><strong>增加账本</strong></DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
@@ -221,12 +222,12 @@ class DefaultHeaderDropdown extends Component {
   }
 
   render() {
-    const { notif, accnt, tasks, mssgs } = this.props;
+    const { notif, accnt, tasks, newrecord } = this.props;
     return (
-        notif ? this.dropNotif() :
-          accnt ? this.dropAccnt() :
-            tasks ? this.dropTasks() :
-              mssgs ? this.dropMssgs() : null
+      notif ? this.dropNotif() :
+        accnt ? this.dropAccnt() :
+          tasks ? this.dropTasks() :
+            newrecord ? this.pupUpNewRecord() : null
     );
   }
 }
@@ -234,4 +235,12 @@ class DefaultHeaderDropdown extends Component {
 DefaultHeaderDropdown.propTypes = propTypes;
 DefaultHeaderDropdown.defaultProps = defaultProps;
 
-export default DefaultHeaderDropdown;
+function mapStateToProps(state) {
+  const { authentication } = state;
+  const { user } = authentication;
+  return {
+    user
+  };
+}
+
+export default connect(mapStateToProps)(DefaultHeaderDropdown);

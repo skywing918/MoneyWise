@@ -4,7 +4,7 @@ import { Card, CardBody, Col, CardHeader } from 'reactstrap';
 import classNames from 'classnames';
 
 const propTypes = {
-  account: PropTypes.object
+  account: PropTypes.array
 };
 
 const defaultProps = {

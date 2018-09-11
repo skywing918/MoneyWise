@@ -14,7 +14,7 @@ function dateTimeFormatter(cell, row) {
 function accountFormatter(cell, row) {
     let baseAccount = row.incomeAccount||row.outgoAccount;
     if(row.incomeAccount && row.outgoAccount) {
-        baseAccount=row.incomeAccount+' to '+row.outgoAccount
+        baseAccount=row.incomeAccount+' -> '+row.outgoAccount
     }
     return (
         <span>{baseAccount}</span>
