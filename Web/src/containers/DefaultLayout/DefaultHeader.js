@@ -45,8 +45,8 @@ class DefaultHeader extends Component {
         <Nav className="ml-auto" navbar >
           
           <DefaultHeaderDropdown newrecord />
-          <DefaultHeaderDropdown notif />
           <DefaultHeaderDropdown tasks />
+          <DefaultHeaderDropdown books />
           <DefaultHeaderDropdown accnt />
         </Nav>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}

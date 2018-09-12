@@ -42,6 +42,15 @@
             ],
         },
         {
+            title: true,
+            name: '其他',
+            wrapper: {
+              element: '',
+              attributes: {},
+            },
+            class: ''
+        },
+        {
             name: '设置',
             url: '/settings',
             icon: 'icon-settings',

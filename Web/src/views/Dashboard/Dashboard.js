@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
 import {
-    Badge,
-    Button,
-    ButtonDropdown,
-    ButtonGroup,
-    ButtonToolbar,
     Card,
     CardBody,
-    CardFooter,
-    CardHeader,
-    CardTitle,
     CardGroup,
     Col,
     Dropdown,
-    DropdownItem,
     DropdownMenu,
     DropdownToggle,
-    Progress,
-    Row,
-    Table,
-    ListGroup,
-    ListGroupItem,
-    TabContent,
-    TabPane
+    Row
 } from 'reactstrap';
 
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 import Widget04 from './Widget04';
 import Charts from './Charts';
 

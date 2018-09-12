@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Progress } from 'reactstrap';
+import { Nav, NavItem, NavLink, TabPane, TabContent, Badge, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Col, Label, Input, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 const propTypes = {
-  notif: PropTypes.bool,
+  books: PropTypes.bool,
   accnt: PropTypes.bool,
   tasks: PropTypes.bool,
   newrecord: PropTypes.bool,
 };
 const defaultProps = {
-  notif: false,
+  books: false,
   accnt: false,
   tasks: false,
   newrecord: false,
@@ -23,8 +24,30 @@ class DefaultHeaderDropdown extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.toggleNewRecord = this.toggleNewRecord.bind(this);
+    this.toggleTabType = this.toggleTabType.bind(this);
+    this.handleChangeRecord = this.handleChangeRecord.bind(this);
+    this.handleSubmitRecord = this.handleSubmitRecord.bind(this);
+    this.toggleNewBook = this.toggleNewBook.bind(this);
+    this.handleChangeBook = this.handleChangeBook.bind(this);
+    this.handleSubmitBook = this.handleSubmitBook.bind(this);
     this.state = {
       dropdownOpen: false,
+      createRecord: false,
+      activeTab: '1',
+      record: {
+        name: '',
+        role: 'RMB',
+        curr: '',
+        comment: ''
+      },
+      createBook: false,
+      book: {
+        name: '',
+        role: 'RMB',
+        curr: '',
+        comment: ''
+      }
     };
   }
 
@@ -34,14 +57,274 @@ class DefaultHeaderDropdown extends Component {
     });
   }
 
+  toggleNewRecord() {
+    this.setState({
+      createRecord: !this.state.createRecord,
+    });
+  }
+
+  toggleTabType(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
+  }
+
+  handleChangeRecord(event) {
+    const { name, value } = event.target;
+    const { record } = this.state;
+    this.setState({
+      record: {
+        ...record,
+        [name]: value
+      }
+    });
+  }
+
+  handleSubmitRecord(event) {
+    event.preventDefault();
+
+    //this.setState({ submitted: true });
+    const { account } = this.state;
+    const { dispatch } = this.props;
+    if (account.name) {
+      this.setState({
+        create: !this.state.create,
+      });
+      //dispatch(userActions.register(user));
+    }
+  }
+
+  toggleNewBook() {
+    this.setState({
+      createBook: !this.state.createBook,
+    });
+  }
+
+  handleChangeBook(event) {
+    const { name, value } = event.target;
+    const { record } = this.state;
+    this.setState({
+      record: {
+        ...record,
+        [name]: value
+      }
+    });
+  }
+
+  handleSubmitBook(event) {
+    event.preventDefault();
+
+    //this.setState({ submitted: true });
+    const { account } = this.state;
+    const { dispatch } = this.props;
+    if (account.name) {
+      this.setState({
+        create: !this.state.create,
+      });
+      //dispatch(userActions.register(user));
+    }
+  }
+
   pupUpNewRecord() {
     return (
-      <Button color="ghost-success p-0" size="sm">
-        <i className="fa fa-plus-square-o"></i>&nbsp;记一笔
-      </Button>
+      <div>
+        <Button color="ghost-success p-0" size="sm" onClick={this.toggleNewRecord}>
+          <i className="fa fa-plus-square-o"></i>&nbsp;记一笔
+        </Button>
+        <Modal isOpen={this.state.createRecord} toggle={this.toggleNewRecord} className={this.props.className}>
+          <ModalBody>
+            <Nav tabs>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '1' })}
+                  onClick={() => { this.toggleTabType('1'); }}
+                >
+                  <i className="icon-calculator"></i> <span className={this.state.activeTab === '1' ? '' : 'd-none'}> 支出</span>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '2' })}
+                  onClick={() => { this.toggleTabType('2'); }}
+                >
+                  <i className="icon-basket-loaded"></i> <span
+                    className={this.state.activeTab === '2' ? '' : 'd-none'}> 收入</span>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '3' })}
+                  onClick={() => { this.toggleTabType('3'); }}
+                >
+                  <i className="icon-pie-chart"></i> <span className={this.state.activeTab === '3' ? '' : 'd-none'}> 转账</span>
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="1">
+                <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmit}>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">金额</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">支出项目</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">账户</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="curr">日期</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="curr" name="curr" value={this.state.record.curr} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">备注</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </TabPane>
+              <TabPane tabId="2">
+                <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmit}>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">金额</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">收入项目</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">账户</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="curr">日期</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="curr" name="curr" value={this.state.record.curr} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">备注</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </TabPane>
+              <TabPane tabId="3">
+                <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmit}>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">金额</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">转出账户</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="role">转入账户</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
+                        <option value="RMB">人民币</option>
+                        <option value="MB">美元</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="curr">日期</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="curr" name="curr" value={this.state.record.curr} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="comment">备注</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="comment" name="comment" value={this.state.record.comment} onChange={this.handleChangeRecord} />
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </TabPane>
+            </TabContent>
+
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmitRecord}>保存</Button>{' '}
+            <Button color="secondary" onClick={this.toggleNewRecord}>取消</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
     );
   }
-  dropNotif() {
+  dropTasks() {
     const itemsCount = 5;
     return (
       <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -49,34 +332,12 @@ class DefaultHeaderDropdown extends Component {
           <i className="icon-bell"></i><Badge pill color="danger">{itemsCount}</Badge>
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} notifications</strong></DropdownItem>
+          <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} pending tasks</strong></DropdownItem>
           <DropdownItem><i className="icon-user-follow text-success"></i> New user registered</DropdownItem>
           <DropdownItem><i className="icon-user-unfollow text-danger"></i> User deleted</DropdownItem>
           <DropdownItem><i className="icon-chart text-info"></i> Sales report is ready</DropdownItem>
           <DropdownItem><i className="icon-basket-loaded text-primary"></i> New client</DropdownItem>
           <DropdownItem><i className="icon-speedometer text-warning"></i> Server overloaded</DropdownItem>
-          <DropdownItem header tag="div" className="text-center"><strong>Server</strong></DropdownItem>
-          <DropdownItem>
-            <div className="text-uppercase mb-1">
-              <small><b>CPU Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="info" value="25" />
-            <small className="text-muted">348 Processes. 1/4 Cores.</small>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="text-uppercase mb-1">
-              <small><b>Memory Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="warning" value={70} />
-            <small className="text-muted">11444GB/16384MB</small>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="text-uppercase mb-1">
-              <small><b>SSD 1 Usage</b></small>
-            </div>
-            <Progress className="progress-xs" color="danger" value={90} />
-            <small className="text-muted">243GB/256GB</small>
-          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
@@ -104,129 +365,62 @@ class DefaultHeaderDropdown extends Component {
     );
   }
 
-  dropTasks() {
+  dropBooks() {
     const itemsCount = 15;
     return (
-      <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle nav>
-          <i className="icon-list"></i><Badge pill color="warning">{itemsCount}</Badge>
-        </DropdownToggle>
-        <DropdownMenu right className="dropdown-menu-lg">
-          <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} pending tasks</strong></DropdownItem>
-          <DropdownItem>
-            <div className="small mb-1">Upgrade NPM &amp; Bower <span
-              className="float-right"><strong>0%</strong></span></div>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="small mb-1">ReactJS Version <span className="float-right"><strong>25%</strong></span>
-            </div>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="small mb-1">VueJS Version <span className="float-right"><strong>50%</strong></span>
-            </div>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="small mb-1">Add new layouts <span className="float-right"><strong>75%</strong></span>
-            </div>
-          </DropdownItem>
-          <DropdownItem>
-            <div className="small mb-1">Angular 2 Cli Version <span className="float-right"><strong>100%</strong></span></div>
-          </DropdownItem>
-          <DropdownItem className="text-center"><strong>增加账本</strong></DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-    );
-  }
-
-  dropMssgs() {
-    const itemsCount = 7;
-    return (
-      <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle nav>
-          <i className="icon-envelope-letter"></i><Badge pill color="info">{itemsCount}</Badge>
-        </DropdownToggle>
-        <DropdownMenu right className="dropdown-menu-lg">
-          <DropdownItem header tag="div"><strong>You have {itemsCount} messages</strong></DropdownItem>
-          <DropdownItem href="#">
-            <div className="message">
-              <div className="pt-3 mr-3 float-left">
-                <div className="avatar">
-                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                  <span className="avatar-status badge-success"></span>
-                </div>
-              </div>
-              <div>
-                <small className="text-muted">John Doe</small>
-                <small className="text-muted float-right mt-1">Just now</small>
-              </div>
-              <div className="text-truncate font-weight-bold"><span className="fa fa-exclamation text-danger"></span> Important message</div>
-              <div className="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
-              </div>
-            </div>
-          </DropdownItem>
-          <DropdownItem href="#">
-            <div className="message">
-              <div className="pt-3 mr-3 float-left">
-                <div className="avatar">
-                  <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                  <span className="avatar-status badge-warning"></span>
-                </div>
-              </div>
-              <div>
-                <small className="text-muted">Jane Doe</small>
-                <small className="text-muted float-right mt-1">5 minutes ago</small>
-              </div>
-              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div className="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
-              </div>
-            </div>
-          </DropdownItem>
-          <DropdownItem href="#">
-            <div className="message">
-              <div className="pt-3 mr-3 float-left">
-                <div className="avatar">
-                  <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                  <span className="avatar-status badge-danger"></span>
-                </div>
-              </div>
-              <div>
-                <small className="text-muted">Janet Doe</small>
-                <small className="text-muted float-right mt-1">1:52 PM</small>
-              </div>
-              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div className="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
-              </div>
-            </div>
-          </DropdownItem>
-          <DropdownItem href="#">
-            <div className="message">
-              <div className="pt-3 mr-3 float-left">
-                <div className="avatar">
-                  <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                  <span className="avatar-status badge-info"></span>
-                </div>
-              </div>
-              <div>
-                <small className="text-muted">Joe Doe</small>
-                <small className="text-muted float-right mt-1">4:03 AM</small>
-              </div>
-              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-              <div className="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...
-              </div>
-            </div>
-          </DropdownItem>
-          <DropdownItem href="#" className="text-center"><strong>View all messages</strong></DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+      <div>
+        <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <DropdownToggle nav>
+            <i className="icon-list"></i><Badge pill color="warning">{itemsCount}</Badge>
+          </DropdownToggle>
+          <DropdownMenu right className="dropdown-menu-lg">
+            <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
+            <DropdownItem>
+              <div className="small mb-1">默认账本</div>
+            </DropdownItem>
+            <DropdownItem>
+              <div className="small mb-1">投资账本</div>
+            </DropdownItem>
+            <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+        <Modal isOpen={this.state.createBook} toggle={this.toggleNewBook} className={this.props.className}>
+          <ModalHeader toggle={this.toggleNewBook}>新增账本</ModalHeader>
+          <ModalBody>
+            <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmitBook}>
+              <FormGroup row>
+                <Col md="3">
+                  <Label htmlFor="name">账本名称</Label>
+                </Col>
+                <Col xs="12" md="9">
+                  <Input type="text" id="name" name="name" value={this.state.book.name} onChange={this.handleChangeBook} required />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Col md="3">
+                  <Label htmlFor="comment">备注</Label>
+                </Col>
+                <Col xs="12" md="9">
+                  <Input type="text" id="comment" name="comment" value={this.state.book.comment} onChange={this.handleChangeBook} />
+                </Col>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmitBook}>保存</Button>{' '}
+            <Button color="secondary" onClick={this.toggleNewBook}>取消</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
     );
   }
 
   render() {
-    const { notif, accnt, tasks, newrecord } = this.props;
+    const { tasks, accnt, books, newrecord } = this.props;
     return (
-      notif ? this.dropNotif() :
+      tasks ? this.dropTasks() :
         accnt ? this.dropAccnt() :
-          tasks ? this.dropTasks() :
+          books ? this.dropBooks() :
             newrecord ? this.pupUpNewRecord() : null
     );
   }
