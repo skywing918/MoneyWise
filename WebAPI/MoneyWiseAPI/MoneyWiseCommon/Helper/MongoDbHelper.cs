@@ -9,7 +9,7 @@ namespace MoneyWiseCommon.Helper
 {
     public class MongoDbHelper
     {
-        static IMongoDatabase mdb;
+        private static IMongoDatabase mdb;
 
         static MongoDbHelper()
         {
@@ -20,45 +20,45 @@ namespace MoneyWiseCommon.Helper
             mdb = client.GetDatabase(dbName);
         }
 
-        public static IMongoCollection<T> GetCollection<T>(string name) where T : class
+        private static IMongoCollection<T> GetCollection<T>() where T : class
         {
-            return mdb.GetCollection<T>(name);
+            return mdb.GetCollection<T>(typeof(T).Name);
         }
 
-        public async static Task<List<T>> GetAllList<T>() where T : class
+        public async static Task<IEnumerable<T>> GetAllList<T>() where T : class
         {
-            var results = await GetCollection<T>(typeof(T).Name).FindAsync("{}").ConfigureAwait(false);
+            var results = await GetCollection<T>().FindAsync("{}").ConfigureAwait(false);
             return results.ToList();
         }
 
-        public async static Task<List<T>> GetWithFilter<T>(FilterDefinition<T> filter) where T : class
+        public async static Task<IEnumerable<T>> GetWithFilter<T>(FilterDefinition<T> filter) where T : class
         {
-            var results = await GetCollection<T>(typeof(T).Name).FindAsync(filter).ConfigureAwait(false);
+            var results = await GetCollection<T>().FindAsync(filter).ConfigureAwait(false);
             return results.ToList();
         }
 
         public async static Task<T> AddRecord<T>(T data) where T : class
         {
-            await GetCollection<T>(typeof(T).Name).InsertOneAsync(data).ConfigureAwait(false);
+            await GetCollection<T>().InsertOneAsync(data).ConfigureAwait(false);
             return data;
         }
 
         public async static Task<T> GetRecordById<T>(Expression<Func<T, string>> keyField, string id) where T : class
         {
-            var results = await GetCollection<T>(typeof(T).Name).FindAsync(Builders<T>.Filter.Eq(keyField, id));
+            var results = await GetCollection<T>().FindAsync(Builders<T>.Filter.Eq(keyField, id));
             return results.FirstOrDefault();
         }
 
         public async static Task UpdateRecord<T>(Expression<Func<T, string>> keyField, string id, T data) where T : class
         {
             var filter = Builders<T>.Filter.Eq(keyField, id);
-            await GetCollection<T>(typeof(T).Name).ReplaceOneAsync(filter, data).ConfigureAwait(false);
+            await GetCollection<T>().ReplaceOneAsync(filter, data).ConfigureAwait(false);
         }
 
         public async static Task DeleteRecord<T>(Expression<Func<T, string>> keyField, string id) where T : class
         {
             var filter = Builders<T>.Filter.Eq(keyField, id);
-            await GetCollection<T>(typeof(T).Name).DeleteOneAsync(filter);
+            await GetCollection<T>().DeleteOneAsync(filter);
         }
 
     }

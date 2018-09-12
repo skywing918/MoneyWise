@@ -23,14 +23,14 @@ namespace MoneyWiseAPI.Controllers
             _userManager = userManager;
         }
 
-        // GET api/values
+        // GET api/books
         [HttpGet]
         public async Task<IEnumerable<Book>> Get()
         {
             return await MongoDbHelper.GetAllList<Book>();
         }
 
-        // GET api/values
+        // GET api/books/getbylist
         [HttpPost("GetByList")]
         public async Task<IEnumerable<Book>> Get([FromBody] List<string> model)
         {
@@ -39,14 +39,14 @@ namespace MoneyWiseAPI.Controllers
             return await MongoDbHelper.GetWithFilter(filter);
         }
 
-        // GET api/values/5
+        // GET api/books/5
         [HttpGet("{id}")]
         public async Task<Book> Get(string id)
         {
             return await MongoDbHelper.GetRecordById<Book>(b => b.Id, id);
         }
 
-        // POST api/values
+        // POST api/books
         [HttpPost]
         public async Task Post([FromBody] BookViewModel model)
         {
@@ -70,7 +70,7 @@ namespace MoneyWiseAPI.Controllers
             await _userManager.UpdateAsync(userToVerify);
         }
 
-        //// PUT api/values/5
+        //// PUT api/books/5
         //[HttpPut("{id}")]
         //public async Task Put(string id, [FromBody] BookViewModel model)
         //{
@@ -80,7 +80,7 @@ namespace MoneyWiseAPI.Controllers
         //    await _operation.UpdateAsync(id, curr);
         //}
 
-        //// DELETE api/values/5
+        //// DELETE api/books/5
         //[HttpDelete("{id}")]
         //public async Task<DeleteResult> Delete(string id)
         //{

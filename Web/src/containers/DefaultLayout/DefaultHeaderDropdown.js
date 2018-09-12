@@ -22,7 +22,7 @@ function BookDropdownItem(props){
   const book = props.book
   return (
   <DropdownItem>
-    <i className="icon-wallet text-success"></i>{book.name}
+    <i className="icon-wallet text-success"></i> {book.name}
   </DropdownItem>)
 }
 
