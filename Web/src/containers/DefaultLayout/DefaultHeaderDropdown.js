@@ -18,6 +18,14 @@ const defaultProps = {
   newrecord: false,
 };
 
+function BookDropdownItem(props){
+  const book = props.book
+  return (
+  <DropdownItem>
+    <i className="icon-wallet text-success"></i>{book.name}
+  </DropdownItem>)
+}
+
 class DefaultHeaderDropdown extends Component {
 
   constructor(props) {
@@ -44,8 +52,6 @@ class DefaultHeaderDropdown extends Component {
       createBook: false,
       book: {
         name: '',
-        role: 'RMB',
-        curr: '',
         comment: ''
       }
     };
@@ -149,7 +155,7 @@ class DefaultHeaderDropdown extends Component {
                   className={classnames({ active: this.state.activeTab === '2' })}
                   onClick={() => { this.toggleTabType('2'); }}
                 >
-                  <i className="icon-basket-loaded"></i> <span
+                  <i className="icon-plus"></i> <span
                     className={this.state.activeTab === '2' ? '' : 'd-none'}> 收入</span>
                 </NavLink>
               </NavItem>
@@ -158,7 +164,7 @@ class DefaultHeaderDropdown extends Component {
                   className={classnames({ active: this.state.activeTab === '3' })}
                   onClick={() => { this.toggleTabType('3'); }}
                 >
-                  <i className="icon-pie-chart"></i> <span className={this.state.activeTab === '3' ? '' : 'd-none'}> 转账</span>
+                  <i className="icon-directions"></i> <span className={this.state.activeTab === '3' ? '' : 'd-none'}> 转账</span>
                 </NavLink>
               </NavItem>
             </Nav>
@@ -366,21 +372,19 @@ class DefaultHeaderDropdown extends Component {
   }
 
   dropBooks() {
-    const itemsCount = 15;
+    const { user } = this.props;
+    const itemsCount = user.books.length;
     return (
       <div>
         <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
           <DropdownToggle nav>
             <i className="icon-list"></i><Badge pill color="warning">{itemsCount}</Badge>
           </DropdownToggle>
-          <DropdownMenu right className="dropdown-menu-lg">
+          <DropdownMenu right>
             <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
-            <DropdownItem>
-              <div className="small mb-1">默认账本</div>
-            </DropdownItem>
-            <DropdownItem>
-              <div className="small mb-1">投资账本</div>
-            </DropdownItem>
+            {user.books.map((book, index) =>
+              <BookDropdownItem key={index} book={book} />
+            )}
             <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
           </DropdownMenu>
         </Dropdown>

@@ -18,6 +18,7 @@ namespace MoneyWiseAPI.Helper
                 unique_name = userName,
                 picture = identity.Claims.Single(c => c.Type == "picture").Value,
                 roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(r=>r.Value).ToList(),
+                books = identity.Claims.Where(c => c.Type == "books").Select(r => r.Value).ToList(),
                 auth_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                 expires_in = (int)jwtOptions.ValidFor.TotalSeconds
             };

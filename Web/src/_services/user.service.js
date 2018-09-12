@@ -11,7 +11,7 @@ export const userService = {
     delete: _delete
 };
 
-const apiUrl = 'http://localhost:5000/api'
+const apiUrl = 'http://172.18.24.135:5000/api'
 
 function login(username, password) {
     const requestOptions = {
@@ -25,11 +25,11 @@ function login(username, password) {
 
     return fetch(`${apiUrl}/auth/login`, requestOptions)
         .then(handleResponse)
+        .then(handleBooks)
         .then(user => {
             // login successful if there's a jwt token in the response
             if (user.auth_token) {
-                if(user.roles&&user.roles.includes("ADMIN"))
-                {
+                if (user.roles && user.roles.includes("ADMIN")) {
                     user.isAdmin = true;
                 }
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -117,5 +117,19 @@ function handleResponse(response) {
         }
 
         return data;
+    });
+}
+function handleBooks(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(user.books)
+    };
+
+    return fetch(`${apiUrl}/books/getbylist`, requestOptions)
+        .then(handleResponse)
+        .then(text => {
+            user.books = text;
+            return user;
     });
 }

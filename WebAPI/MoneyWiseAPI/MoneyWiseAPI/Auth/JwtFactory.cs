@@ -59,6 +59,13 @@ namespace MoneyWiseAPI.Auth
             currClaims.Add(new Claim(ClaimTypes.Name, user.UserName));
             currClaims.Add(new Claim(ClaimTypes.Email, user.Email));
             currClaims.Add(new Claim(Constants.Strings.JwtClaimIdentifiers.Picture, user.Picture?? defaultPic));
+
+            // get Books
+            if (user.BookIds != null)
+            {
+                var books = user.BookIds.Select(b => new Claim(Constants.Strings.JwtClaimIdentifiers.Books, b)).ToList();
+                currClaims.AddRange(books);
+            }
             return new ClaimsIdentity(new GenericIdentity(user.UserName, "Token"), currClaims); 
         }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MoneyWiseCommon.Helper
 {
@@ -24,36 +25,40 @@ namespace MoneyWiseCommon.Helper
             return mdb.GetCollection<T>(name);
         }
 
-        public static List<T> GetAllList<T>() where T : class
+        public async static Task<List<T>> GetAllList<T>() where T : class
         {
-            return GetCollection<T>(typeof(T).Name).Find("{}").ToList<T>();
+            var results = await GetCollection<T>(typeof(T).Name).FindAsync("{}").ConfigureAwait(false);
+            return results.ToList();
         }
 
-        public static List<T> GetWithFilter<T>(FilterDefinition<T> filter) where T : class
+        public async static Task<List<T>> GetWithFilter<T>(FilterDefinition<T> filter) where T : class
         {
-            return GetCollection<T>(typeof(T).Name).Find(filter).ToList<T>();
+            var results = await GetCollection<T>(typeof(T).Name).FindAsync(filter).ConfigureAwait(false);
+            return results.ToList();
         }
 
-        public static void AddRecord<T>(T data) where T : class
+        public async static Task<T> AddRecord<T>(T data) where T : class
         {
-            GetCollection<T>(typeof(T).Name).InsertOne(data);
+            await GetCollection<T>(typeof(T).Name).InsertOneAsync(data).ConfigureAwait(false);
+            return data;
         }
 
-        public static T GetRecordById<T>(Expression<Func<T, string>> keyField, string id) where T : class
+        public async static Task<T> GetRecordById<T>(Expression<Func<T, string>> keyField, string id) where T : class
         {
-            return GetCollection<T>(typeof(T).Name).Find(Builders<T>.Filter.Eq(keyField, id)).FirstOrDefault();
+            var results = await GetCollection<T>(typeof(T).Name).FindAsync(Builders<T>.Filter.Eq(keyField, id));
+            return results.FirstOrDefault();
         }
 
-        public static void UpdateRecord<T>(Expression<Func<T, string>> keyField, string id, T data) where T : class
+        public async static Task UpdateRecord<T>(Expression<Func<T, string>> keyField, string id, T data) where T : class
         {
             var filter = Builders<T>.Filter.Eq(keyField, id);
-            GetCollection<T>(typeof(T).Name).ReplaceOne(filter, data);
+            await GetCollection<T>(typeof(T).Name).ReplaceOneAsync(filter, data).ConfigureAwait(false);
         }
 
-        public static void DeleteRecord<T>(Expression<Func<T, string>> keyField, string id) where T : class
+        public async static Task DeleteRecord<T>(Expression<Func<T, string>> keyField, string id) where T : class
         {
             var filter = Builders<T>.Filter.Eq(keyField, id);
-            GetCollection<T>(typeof(T).Name).DeleteOne(filter);
+            await GetCollection<T>(typeof(T).Name).DeleteOneAsync(filter);
         }
 
     }

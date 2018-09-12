@@ -19,6 +19,7 @@ namespace MoneyWiseAPI
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://172.18.24.135:5000")
                 .UseStartup<Startup>();
     }
 }
