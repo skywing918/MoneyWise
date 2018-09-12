@@ -373,7 +373,7 @@ class DefaultHeaderDropdown extends Component {
 
   dropBooks() {
     const { user } = this.props;
-    const itemsCount = user.books.length;
+    const itemsCount = user.books==null?0:user.books.length;
     return (
       <div>
         <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -382,7 +382,7 @@ class DefaultHeaderDropdown extends Component {
           </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
-            {user.books.map((book, index) =>
+            {user.books && user.books.map((book, index) =>
               <BookDropdownItem key={index} book={book} />
             )}
             <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
