@@ -14,7 +14,7 @@
     {
         private static volatile object _obj = new object();
 
-        private static readonly string collectionName = "Book";
+        private static readonly string collectionName = "Books";
         private static IBooksServices _instance;
 
         public static IBooksServices Instance

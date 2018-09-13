@@ -12,7 +12,7 @@
     {
         private static volatile object _obj = new object();
 
-        private static readonly string collectionName = "Account";
+        private static readonly string collectionName = "Accounts";
         private static IAccountsServices _instance;
 
         public static IAccountsServices Instance
