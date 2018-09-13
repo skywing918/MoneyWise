@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IAuthAccountsServces
+    public interface IAuthAccountsServices
     {
         Task ShareBookToUserAsync(string userName, string bookId);
     }

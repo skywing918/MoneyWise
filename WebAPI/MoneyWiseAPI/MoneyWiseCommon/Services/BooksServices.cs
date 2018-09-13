@@ -14,7 +14,7 @@
     {
         private static volatile object _obj = new object();
 
-        private static readonly string collectionName = "Books";
+        private static readonly string collectionName = "Book";
         private static IBooksServices _instance;
 
         public static IBooksServices Instance
@@ -51,7 +51,7 @@
 
             var currBookId = result.Id;
             var userName = book.CreatedBy;
-            await ServiceFactory.AuthAccountsServcesInstance.ShareBookToUserAsync(userName, currBookId).ConfigureAwait(false);
+            await ServiceFactory.AuthAccountsServicesInstance.ShareBookToUserAsync(userName, currBookId).ConfigureAwait(false);
             return result;
         }
 

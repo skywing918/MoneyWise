@@ -11,7 +11,10 @@
     {
         private static IConfiguration _configuration;
         private static IBooksServices _booksService;
-        private static IAuthAccountsServces _authAccountsService;
+        private static IAuthAccountsServices _authAccountsService;
+        private static IAccountsServices _accountsService;
+        private static ITransactionServices _transactionService;
+
         /// <summary>
         /// Configuration instance
         /// </summary>
@@ -25,9 +28,20 @@
             get { return _booksService ?? (_booksService = BooksServices.Instance); }
         }
 
-        public static IAuthAccountsServces AuthAccountsServcesInstance
+        public static IAccountsServices AccountsServicesInstance
         {
-            get { return _authAccountsService ?? (_authAccountsService = AuthAccountsServces.Instance); }
+            get { return _accountsService ?? (_accountsService = AccountsServices.Instance); }
+        }
+
+        public static ITransactionServices TransactionServicesInstance
+        {
+            get { return _transactionService ?? (_transactionService = TransactionServices.Instance); }
+        }
+
+
+        public static IAuthAccountsServices AuthAccountsServicesInstance
+        {
+            get { return _authAccountsService ?? (_authAccountsService = AuthAccountsServices.Instance); }
         }
     }
 }

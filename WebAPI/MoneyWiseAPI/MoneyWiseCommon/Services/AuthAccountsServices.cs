@@ -6,14 +6,14 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class AuthAccountsServces: IAuthAccountsServces
+    public class AuthAccountsServices: IAuthAccountsServices
     {
         private static volatile object _obj = new object();
 
         private static readonly string collectionName = "users";
-        private static IAuthAccountsServces _instance;
+        private static IAuthAccountsServices _instance;
 
-        public static IAuthAccountsServces Instance
+        public static IAuthAccountsServices Instance
         {
             get
             {
@@ -24,7 +24,7 @@
 
                 lock (_obj)
                 {
-                    return _instance ?? (_instance = new AuthAccountsServces());
+                    return _instance ?? (_instance = new AuthAccountsServices());
                 }
             }
         }

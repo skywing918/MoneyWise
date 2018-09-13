@@ -19,6 +19,7 @@ class Accounts extends Component {
             create: false,
             account: {
                 name: '',
+                type:'',
                 role: 'RMB',
                 curr: '',
                 comment:''
@@ -89,7 +90,7 @@ class Accounts extends Component {
                     <Col>
                         <Card>
                             <CardHeader>
-                                Traffic {' & '} Sales
+                                账户中心
                                 <div className="card-header-actions">
                                     <Button onClick={this.toggleNew} size="sm"><i className="icon-plus"></i>&nbsp;增加账户</Button>
                                     <Modal isOpen={this.state.create} toggle={this.toggleNew} className={this.props.className}>
@@ -102,6 +103,19 @@ class Accounts extends Component {
                                                     </Col>
                                                     <Col xs="12" md="9">
                                                         <Input type="text" id="name" name="name" value={account.name} onChange={this.handleChange} required />
+                                                    </Col>
+                                                </FormGroup>
+                                                <FormGroup row>
+                                                    <Col md="3">
+                                                        <Label htmlFor="role">账户类型</Label>
+                                                    </Col>
+                                                    <Col xs="12" md="9">
+                                                        <Input type="select" id="role" name="role" value={account.type} onChange={this.handleChange}>
+                                                            <option value="RMB">现金</option>
+                                                            <option value="MB">活期(卡折)</option>
+                                                            <option value="MB">信用卡</option>
+                                                            <option value="MB">投资</option>
+                                                        </Input>
                                                     </Col>
                                                 </FormGroup>
                                                 <FormGroup row>
