@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using MoneyWiseAPI.Auth;
 using MoneyWiseAPI.Helper;
 using MoneyWiseAPI.ViewModels;
+using MoneyWiseCommon.Models;
 using Newtonsoft.Json;
 
 namespace MoneyWiseAPI.Controllers

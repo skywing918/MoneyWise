@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoneyWiseAPI.Helper;
 using MoneyWiseAPI.ViewModels;
+using MoneyWiseCommon.Models;
 
 namespace MoneyWiseAPI.Controllers
 {

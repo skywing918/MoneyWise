@@ -9,6 +9,7 @@ using MongoDB.Driver;
 using MoneyWiseCommon.Helper;
 using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
+using MoneyWiseCommon;
 
 namespace MoneyWiseAPI.Controllers
 {
@@ -23,51 +24,26 @@ namespace MoneyWiseAPI.Controllers
             _userManager = userManager;
         }
 
-        // GET api/books
-        [HttpGet]
-        public async Task<IEnumerable<Book>> Get()
-        {
-            return await MongoDbHelper.GetAllList<Book>();
-        }
-
         // GET api/books/getbylist
         [HttpPost("GetByList")]
         public async Task<IEnumerable<Book>> Get([FromBody] List<string> model)
         {
-            var filterBuilder = Builders<Book>.Filter;
-            var filter = filterBuilder.Where(x => model.Contains(x.Id));
-            return await MongoDbHelper.GetWithFilter(filter);
+            return await MoneyWiseServices.Instance.GetBooksByIdsAsync(model);
         }
 
-        // GET api/books/5
-        [HttpGet("{id}")]
-        public async Task<Book> Get(string id)
-        {
-            return await MongoDbHelper.GetRecordById<Book>(b => b.Id, id);
-        }
+        //// GET api/books/5
+        //[HttpGet("{id}")]
+        //public async Task<Book> Get(string id)
+        //{
+        //    return await MongoDbHelper.GetRecordById<Book>(b => b.Id, id);
+        //}
 
         // POST api/books
         [HttpPost]
-        public async Task Post([FromBody] BookViewModel model)
+        public async Task Post([FromBody] BookViewModel viewModel)
         {
-            var curr = new Book
-            {
-                Name = model.Name,
-                CreatedBy = model.CreatedBy,
-                CreatedDate = DateTime.Now
-            };
-            var result = await MongoDbHelper.AddRecord(curr);
-            var currId = result.Id;
-
-            // get the user to verifty
-            var userToVerify = await _userManager.FindByNameAsync(model.CreatedBy);
-            if (userToVerify.BookIds == null)
-            {
-                userToVerify.BookIds = new List<string>();
-            }
-            userToVerify.BookIds.Add(currId);
-
-            await _userManager.UpdateAsync(userToVerify);
+            var curr = viewModel.ToModel();
+            await MoneyWiseServices.Instance.AddBookAsync(curr);
         }
 
         //// PUT api/books/5
@@ -80,11 +56,11 @@ namespace MoneyWiseAPI.Controllers
         //    await _operation.UpdateAsync(id, curr);
         //}
 
-        //// DELETE api/books/5
-        //[HttpDelete("{id}")]
-        //public async Task<DeleteResult> Delete(string id)
-        //{
-        //    return await _operation.RemoveByIdAsync(id);
-        //}
+        // DELETE api/books/5
+        [HttpDelete("{id}")]
+        public async Task Delete(string id)
+        {
+            await MoneyWiseServices.Instance.DeleteBookAsync(id);
+        }
     }
 }

@@ -1,11 +1,8 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MoneyWiseCommon.Models
+﻿namespace MoneyWiseCommon.Models
 {
+    using MongoDB.Bson.Serialization.Attributes;
+    using System;
+
     public class Transaction : MongoEntity
     {
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]

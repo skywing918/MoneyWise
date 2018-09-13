@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AspNetCore.Identity.Mongo" Version="2.5.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
   </ItemGroup>
 

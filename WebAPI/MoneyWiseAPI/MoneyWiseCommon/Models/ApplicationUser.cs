@@ -1,8 +1,8 @@
-﻿using AspNetCore.Identity.Mongo;
-using System.Collections.Generic;
-
-namespace MoneyWiseAPI
+﻿namespace MoneyWiseCommon.Models
 {
+    using AspNetCore.Identity.Mongo;
+    using System.Collections.Generic;
+
     // Add profile data for application users by adding properties to the ApplicationUser class
 
     public class ApplicationUser : MongoIdentityUser

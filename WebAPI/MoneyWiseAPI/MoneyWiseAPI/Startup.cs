@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using MoneyWiseAPI.Auth;
 using MoneyWiseAPI.Helper;
 using MoneyWiseAPI.ViewModels.Validations;
+using MoneyWiseCommon.Models;
 
 namespace MoneyWiseAPI
 {
