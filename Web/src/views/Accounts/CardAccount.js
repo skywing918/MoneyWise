@@ -20,22 +20,22 @@ function currencyFormater(price) {
 
 function AccountRow(props) {
   const account = props.account
-  const calloutClasses = classNames('callout', 'callout-' + getColor(account.total));
-  const totalClasses = classNames('text-' + getColor(account.total));
+  const calloutClasses = classNames('callout', 'callout-' + getColor(account.price));
+  const totalClasses = classNames('text-' + getColor(account.price));
 
   return (
     <tr >
       <td ></td>
       <td className="p-0">
         <div className={calloutClasses}>
-          <div>{account.title}</div>
+          <div>{account.name}</div>
           <div className="small text-muted">
             <span>人民币</span> | {account.owner}
           </div>
         </div>
       </td>
       <td className={totalClasses}>
-        <strong>{currencyFormater(account.total)}</strong>
+        <strong>{currencyFormater(account.price)}</strong>
       </td>
       <td >
         <div className="accountMenu">修改 | 删除</div>
@@ -46,16 +46,16 @@ function AccountRow(props) {
 
 class CardAccount extends Component {
   render() {
-    const { accounts } = this.props;
-    const accountList = accounts.accountList;
-    const totalClasses = classNames('text-' + getColor(accounts.total));
+    const { cards } = this.props;
+    const accountList = cards.accounts;
+    const totalClasses = classNames('text-' + getColor(cards.total));
     return (
       <Table hover responsive className="table-outline mb-3 d-none d-sm-table">
         <thead className="thead-light">
           <tr>
-            <th style={{ width: 10 + '%' }}>{accounts.name}</th>
+            <th style={{ width: 10 + '%' }}>{cards.name}</th>
             <th style={{ width: 75 + '%' }}></th>
-            <th className={totalClasses}>{currencyFormater(accounts.total)}</th>
+            <th className={totalClasses}>{currencyFormater(cards.total)}</th>
             <th style={{ width: 10 + '%' }}></th>
           </tr>
         </thead>

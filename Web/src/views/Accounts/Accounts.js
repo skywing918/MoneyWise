@@ -9,10 +9,10 @@ import {
     Modal, ModalBody, ModalFooter, ModalHeader,
     Form, FormGroup, Label, Input
 } from 'reactstrap';
-import { connect } from 'react-redux';
+
 import CardAccount from './CardAccount';
 import { accountActions } from '../../_actions';
-
+import { connect } from 'react-redux';
 
 class Accounts extends Component {
     constructor(props) {
@@ -33,9 +33,7 @@ class Accounts extends Component {
     }
 
     componentDidMount() {
-        const { user } = this.props;
         this.props.dispatch(accountActions.getAllByBookId('5b9b50e55f36930bd41a254b'));
-        
     }
 
     toggleNew() {
@@ -69,8 +67,8 @@ class Accounts extends Component {
     }
 
     render() {
-        const { account, submitted, accounts } = this.state;
-        
+        const { accounts } = this.props;
+        const { account } = this.state;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -143,7 +141,7 @@ class Accounts extends Component {
                             </CardHeader>
                             <CardBody >
                                 {accounts.items && accounts.items.map((cards, index) =>
-                                    <CardAccount accounts={cards} key={index} />
+                                    <CardAccount cards={cards} key={index} />
                                 )}
                             </CardBody>
                         </Card>
@@ -155,12 +153,13 @@ class Accounts extends Component {
 }
 
 function mapStateToProps(state) {
-    const { accounts, authentication } = state;
+    const { books, authentication,accounts } = state;
     const { user } = authentication;
     return {
-        user,
-        accounts
+      user,
+      books,
+      accounts
     };
-}
+  }
 
 export default connect(mapStateToProps)(Accounts);

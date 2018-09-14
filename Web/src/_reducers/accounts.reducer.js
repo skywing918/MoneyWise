@@ -8,12 +8,8 @@ export function accounts(state = {}, action) {
         loading: true
       };
     case accountConstants.CREATE_SUCCESS:
-      if(state.items==null) {
-        state.items=[];
-      }
-      state.items.push(action.book)
       return {
-        items:state.items
+        
       };
     case accountConstants.CREATE_FAILURE:
       return {
