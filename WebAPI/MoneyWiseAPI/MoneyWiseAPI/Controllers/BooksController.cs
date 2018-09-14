@@ -17,11 +17,9 @@ namespace MoneyWiseAPI.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public BooksController(UserManager<ApplicationUser> userManager)
+        public BooksController()
         {
-            _userManager = userManager;
+
         }
 
         // GET api/books/getbylist

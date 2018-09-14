@@ -57,5 +57,15 @@ namespace MoneyWiseCommon
         {
             await ServiceFactory.BooksServicesInstance.DeleteBookAsync(bookId).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<Account>> GetAccountsByBookIdAsync(string book)
+        {
+            return await ServiceFactory.AccountsServicesInstance.GetAccountsByBookIdAsync(book).ConfigureAwait(false);
+        }
+
+        public async Task<Account> AddAccountAsync(Account curr)
+        {
+            return await ServiceFactory.AccountsServicesInstance.AddAccountAsync(curr).ConfigureAwait(false);
+        }
     }
 }

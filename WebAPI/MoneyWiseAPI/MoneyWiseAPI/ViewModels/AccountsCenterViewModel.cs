@@ -9,6 +9,6 @@ namespace MoneyWiseAPI.ViewModels
     {
         public string Name { get; set; }
         public double Sum { get; set; }
-        IEnumerable<BookAccountViewModel> Accounts { get; set; }
+        public IEnumerable<BookAccountViewModel> Accounts { get; set; }
     }
 }

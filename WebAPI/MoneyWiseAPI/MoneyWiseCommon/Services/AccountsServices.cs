@@ -42,7 +42,7 @@
         {
             // when create the new book, the createdby and updatedby should be same.
             var currDateTime = DateTime.Now;
-            account.CreatedBy = account.UpdatedBy;
+            account.UpdatedBy = account.CreatedBy;
             account.CreatedDate = currDateTime;
             account.UpdatedDate = currDateTime;
             var result = await MongoDbHelper.AddRecord(collectionName, account).ConfigureAwait(false);

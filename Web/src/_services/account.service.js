@@ -3,31 +3,31 @@ import { userActions } from '../_actions';
 
 export const accountService = {
     create,
-    getAll,
+    getAllByBookId,
     update,
     delete: _delete
 };
 
 const apiUrl = 'http://172.18.24.135:5000/api'
 
-function getAll(bookId) {
+function getAllByBookId(bookId) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/account/getbybook/${bookId}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/accounts/getbybook/${bookId}`, requestOptions).then(handleResponse);
         
 }
 
 function create(account) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(account)
     };
 
-    return fetch(`${apiUrl}/account`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/accounts`, requestOptions).then(handleResponse);
 }
 
 function update(account) {
@@ -37,7 +37,7 @@ function update(account) {
         body: JSON.stringify(account)
     };
 
-    return fetch(`${apiUrl}/account/${account.id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/accounts/${account.id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -47,7 +47,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/account/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/accounts/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

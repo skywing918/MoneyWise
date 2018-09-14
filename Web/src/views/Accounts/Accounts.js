@@ -7,9 +7,11 @@ import {
     Col,
     Row,
     Modal, ModalBody, ModalFooter, ModalHeader,
-    Form,FormGroup,Label,Input
+    Form, FormGroup, Label, Input
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import CardAccount from './CardAccount';
+import { accountActions } from '../../_actions';
 
 
 class Accounts extends Component {
@@ -19,17 +21,23 @@ class Accounts extends Component {
             create: false,
             account: {
                 name: '',
-                type:'',
+                type: '2',
                 role: 'RMB',
-                curr: '',
-                comment:''
+                price: 0,
+                comments: ''
             }
         };
         this.toggleNew = this.toggleNew.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+
+    componentDidMount() {
+        const { user } = this.props;
+        this.props.dispatch(accountActions.getAllByBookId('5b9b50e55f36930bd41a254b'));
+        
+    }
+
     toggleNew() {
         this.setState({
             create: !this.state.create,
@@ -50,40 +58,19 @@ class Accounts extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        //this.setState({ submitted: true });
+        this.setState({ create: !this.state.create });
         const { account } = this.state;
-        const { dispatch } = this.props;
+        const { dispatch, user } = this.props;
+        account.CreatedBy = user.unique_name;
+        account.BookId = '5b9b50e55f36930bd41a254b';
         if (account.name) {
-            this.setState({
-                create: !this.state.create,
-            });
-            //dispatch(userActions.register(user));
+            dispatch(accountActions.create(account));
         }
     }
 
     render() {
-        const { account, submitted } = this.state;
-        const cardList = [
-            {
-                id:0,
-                name:'活期',
-                total:-400, 
-                accountList: [
-                    { id: 1, title: '他的活期', owner: 'Kyle', total: 100 },
-                    { id: 2, title: '我的活期', owner: 'aniv', total: -500 }
-                ]
-            },
-            {
-                id:3,
-                name:'卡',
-                total:1000, 
-                accountList: [
-                    { id: 4, title: '招行卡', owner: 'Kyle', total: -1500 },
-                    { id: 5, title: '农行卡', owner: 'aniv', total: 500 }
-                ]
-            }
-
-        ]
+        const { account, submitted, accounts } = this.state;
+        
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -96,7 +83,7 @@ class Accounts extends Component {
                                     <Modal isOpen={this.state.create} toggle={this.toggleNew} className={this.props.className}>
                                         <ModalHeader toggle={this.toggleNew}>新增账号</ModalHeader>
                                         <ModalBody>
-                                        <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmit}>
+                                            <Form action="" method="post" encType="multipart/form-data" className="form-horizontal" onSubmit={this.handleSubmit}>
                                                 <FormGroup row>
                                                     <Col md="3">
                                                         <Label htmlFor="name">账户名称</Label>
@@ -107,14 +94,14 @@ class Accounts extends Component {
                                                 </FormGroup>
                                                 <FormGroup row>
                                                     <Col md="3">
-                                                        <Label htmlFor="role">账户类型</Label>
+                                                        <Label htmlFor="type">账户类型</Label>
                                                     </Col>
                                                     <Col xs="12" md="9">
-                                                        <Input type="select" id="role" name="role" value={account.type} onChange={this.handleChange}>
-                                                            <option value="RMB">现金</option>
-                                                            <option value="MB">活期(卡折)</option>
-                                                            <option value="MB">信用卡</option>
-                                                            <option value="MB">投资</option>
+                                                        <Input type="select" id="type" name="type" value={account.type} onChange={this.handleChange}>
+                                                            <option value="1">现金</option>
+                                                            <option value="2">活期(卡折)</option>
+                                                            <option value="3">信用卡</option>
+                                                            <option value="4">投资</option>
                                                         </Input>
                                                     </Col>
                                                 </FormGroup>
@@ -155,9 +142,9 @@ class Accounts extends Component {
                                 </div>
                             </CardHeader>
                             <CardBody >
-                            {cardList.map((accounts, index) =>
-                                <CardAccount accounts={accounts} key={index}/>
-                            )}
+                                {accounts.items && accounts.items.map((cards, index) =>
+                                    <CardAccount accounts={cards} key={index} />
+                                )}
                             </CardBody>
                         </Card>
                     </Col>
@@ -167,4 +154,13 @@ class Accounts extends Component {
     }
 }
 
-export default Accounts;
+function mapStateToProps(state) {
+    const { accounts, authentication } = state;
+    const { user } = authentication;
+    return {
+        user,
+        accounts
+    };
+}
+
+export default connect(mapStateToProps)(Accounts);

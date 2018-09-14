@@ -48,8 +48,8 @@ class DefaultHeaderDropdown extends Component {
       record: {
         name: '',
         role: 'RMB',
-        curr: '',
-        comment: ''
+        price: 0,
+        comments: ''
       },
       createBook: false,
       book: {
