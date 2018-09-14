@@ -43,9 +43,9 @@ namespace MoneyWiseCommon
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<Book>> GetBooksByIdsAsync(List<string> model)
+        public async Task<IEnumerable<Book>> GetBooksByOwnerIdAsync(string userId)
         {
-            return await ServiceFactory.BooksServicesInstance.GetBooksByIdsAsync(model).ConfigureAwait(false);
+            return await ServiceFactory.BooksServicesInstance.GetBooksByOwnerIdAsync(userId).ConfigureAwait(false);
         }
 
         public async Task<Book> AddBookAsync(Book book)

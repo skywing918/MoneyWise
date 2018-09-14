@@ -33,10 +33,11 @@
             }
         }
 
-        public async Task<IEnumerable<Book>> GetBooksByIdsAsync(IEnumerable<string> Ids)
+        public async Task<IEnumerable<Book>> GetBooksByOwnerIdAsync(string ownerId)
         {
+            var bookIds = await ServiceFactory.AuthAccountsServicesInstance.GetBookIdsByUserIdAsync(ownerId).ConfigureAwait(false);
             var filterBuilder = Builders<Book>.Filter;
-            var filter = filterBuilder.Where(x => Ids.Contains(x.Id));
+            var filter = filterBuilder.Where(x => bookIds.Contains(x.Id));
             return await MongoDbHelper.GetWithFilter(collectionName, filter).ConfigureAwait(false);
         }
 

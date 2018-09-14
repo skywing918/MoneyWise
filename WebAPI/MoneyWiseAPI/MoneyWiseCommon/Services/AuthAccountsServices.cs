@@ -41,5 +41,16 @@
 
             await MongoDbHelper.UpdateRecord(collectionName, user => user.Id, userToVerify.Id, userToVerify);
         }
+
+        public async Task<IEnumerable<string>> GetBookIdsByUserIdAsync(string userId)
+        {
+            var result = new List<string>();
+            var userToVerify = await MongoDbHelper.GetRecordById<ApplicationUser>(collectionName, user => user.Id, userId);
+            if (userToVerify != null)
+            {
+                result = userToVerify.BookIds;
+            }
+            return result;
+        }
     }
 }

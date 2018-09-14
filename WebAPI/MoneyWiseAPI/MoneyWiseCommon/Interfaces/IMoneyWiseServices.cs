@@ -8,7 +8,7 @@ namespace MoneyWiseCommon.Interfaces
 {
     public interface IMoneyWiseServices
     {
-        Task<IEnumerable<Book>> GetBooksByIdsAsync(List<string> model);
+        Task<IEnumerable<Book>> GetBooksByOwnerIdAsync(string user);
 
         Task<Book> AddBookAsync(Book book);
 

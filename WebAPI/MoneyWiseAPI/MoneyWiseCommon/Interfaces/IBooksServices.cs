@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IEnumerable<Book>> GetBooksByIdsAsync(IEnumerable<string> Ids);
+        Task<IEnumerable<Book>> GetBooksByOwnerIdAsync(string ownerId);
 
         /// <summary>
         /// Add books 

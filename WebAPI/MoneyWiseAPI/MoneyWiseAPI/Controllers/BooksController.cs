@@ -25,10 +25,10 @@ namespace MoneyWiseAPI.Controllers
         }
 
         // GET api/books/getbylist
-        [HttpPost("GetByList")]
-        public async Task<IEnumerable<Book>> Get([FromBody] List<string> model)
+        [HttpGet("getbyowner/{owner}")]
+        public async Task<IEnumerable<Book>> Get(string owner)
         {
-            return await MoneyWiseServices.Instance.GetBooksByIdsAsync(model);
+            return await MoneyWiseServices.Instance.GetBooksByOwnerIdAsync(owner);
         }
 
         //// GET api/books/5
@@ -40,10 +40,10 @@ namespace MoneyWiseAPI.Controllers
 
         // POST api/books
         [HttpPost]
-        public async Task Post([FromBody] BookViewModel viewModel)
+        public async Task<Book> Post([FromBody] BookViewModel viewModel)
         {
             var curr = viewModel.ToModel();
-            await MoneyWiseServices.Instance.AddBookAsync(curr);
+            return await MoneyWiseServices.Instance.AddBookAsync(curr);
         }
 
         //// PUT api/books/5

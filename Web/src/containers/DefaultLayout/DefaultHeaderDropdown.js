@@ -5,25 +5,27 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
+import { bookActions } from '../../_actions';
+
 const propTypes = {
-  books: PropTypes.bool,
-  accnt: PropTypes.bool,
-  tasks: PropTypes.bool,
-  newrecord: PropTypes.bool,
+  booksdiv: PropTypes.bool,
+  accntdiv: PropTypes.bool,
+  tasksdiv: PropTypes.bool,
+  newrecorddiv: PropTypes.bool,
 };
 const defaultProps = {
-  books: false,
-  accnt: false,
-  tasks: false,
-  newrecord: false,
+  booksdiv: false,
+  accntdiv: false,
+  tasksdiv: false,
+  newrecorddiv: false,
 };
 
-function BookDropdownItem(props){
+function BookDropdownItem(props) {
   const book = props.book
   return (
-  <DropdownItem>
-    <i className="icon-wallet text-success"></i> {book.name}
-  </DropdownItem>)
+    <DropdownItem>
+      <i className="icon-wallet text-success"></i> {book.name}
+    </DropdownItem>)
 }
 
 class DefaultHeaderDropdown extends Component {
@@ -55,6 +57,13 @@ class DefaultHeaderDropdown extends Component {
         comment: ''
       }
     };
+  }
+
+  componentDidMount() {
+    const { user, booksdiv } = this.props;
+    if (booksdiv) {
+      this.props.dispatch(bookActions.getByOwner(user.id));
+    }
   }
 
   toggle() {
@@ -98,7 +107,7 @@ class DefaultHeaderDropdown extends Component {
       this.setState({
         create: !this.state.create,
       });
-      //dispatch(userActions.register(user));
+      //dispatch(bookActions.create(user));
     }
   }
 
@@ -110,10 +119,10 @@ class DefaultHeaderDropdown extends Component {
 
   handleChangeBook(event) {
     const { name, value } = event.target;
-    const { record } = this.state;
+    const { book } = this.state;
     this.setState({
-      record: {
-        ...record,
+      book: {
+        ...book,
         [name]: value
       }
     });
@@ -122,14 +131,12 @@ class DefaultHeaderDropdown extends Component {
   handleSubmitBook(event) {
     event.preventDefault();
 
-    //this.setState({ submitted: true });
-    const { account } = this.state;
-    const { dispatch } = this.props;
-    if (account.name) {
-      this.setState({
-        create: !this.state.create,
-      });
-      //dispatch(userActions.register(user));
+    this.setState({ createBook: !this.state.createBook });
+    const { book } = this.state;
+    const { dispatch, user } = this.props;
+    book.UpdatedBy = user.unique_name;
+    if (book.name) {
+      dispatch(bookActions.create(book));
     }
   }
 
@@ -372,8 +379,8 @@ class DefaultHeaderDropdown extends Component {
   }
 
   dropBooks() {
-    const { user } = this.props;
-    const itemsCount = user.books==null?0:user.books.length;
+    const { books } = this.props;
+    const itemsCount = books.items == null ? 0 : books.items.length;
     return (
       <div>
         <Dropdown nav className="d-md-down-none" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -382,7 +389,7 @@ class DefaultHeaderDropdown extends Component {
           </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
-            {user.books && user.books.map((book, index) =>
+            {books.items && books.items.map((book, index) =>
               <BookDropdownItem key={index} book={book} />
             )}
             <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
@@ -420,12 +427,12 @@ class DefaultHeaderDropdown extends Component {
   }
 
   render() {
-    const { tasks, accnt, books, newrecord } = this.props;
+    const { tasksdiv, accntdiv, booksdiv, newrecorddiv } = this.props;
     return (
-      tasks ? this.dropTasks() :
-        accnt ? this.dropAccnt() :
-          books ? this.dropBooks() :
-            newrecord ? this.pupUpNewRecord() : null
+      tasksdiv ? this.dropTasks() :
+        accntdiv ? this.dropAccnt() :
+          booksdiv ? this.dropBooks() :
+            newrecorddiv ? this.pupUpNewRecord() : null
     );
   }
 }
@@ -434,10 +441,11 @@ DefaultHeaderDropdown.propTypes = propTypes;
 DefaultHeaderDropdown.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-  const { authentication } = state;
+  const { books, authentication } = state;
   const { user } = authentication;
   return {
-    user
+    user,
+    books
   };
 }
 

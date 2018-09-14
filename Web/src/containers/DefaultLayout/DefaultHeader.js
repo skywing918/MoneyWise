@@ -44,10 +44,10 @@ class DefaultHeader extends Component {
         }
         <Nav className="ml-auto" navbar >
           
-          <DefaultHeaderDropdown newrecord />
-          <DefaultHeaderDropdown tasks />
-          <DefaultHeaderDropdown books />
-          <DefaultHeaderDropdown accnt />
+          <DefaultHeaderDropdown newrecorddiv />
+          <DefaultHeaderDropdown tasksdiv />
+          <DefaultHeaderDropdown booksdiv />
+          <DefaultHeaderDropdown accntdiv />
         </Nav>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>

@@ -25,7 +25,6 @@ function login(username, password) {
 
     return fetch(`${apiUrl}/auth/login`, requestOptions)
         .then(handleResponse)
-        .then(handleBooks)
         .then(user => {
             // login successful if there's a jwt token in the response
             if (user.auth_token) {
@@ -117,19 +116,5 @@ function handleResponse(response) {
         }
 
         return data;
-    });
-}
-function handleBooks(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user.books)
-    };
-
-    return fetch(`${apiUrl}/books/getbylist`, requestOptions)
-        .then(handleResponse)
-        .then(text => {
-            user.books = text;
-            return user;
     });
 }
