@@ -9,16 +9,16 @@ namespace MoneyWiseAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountsController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
 
-        // POST api/accounts
+        // POST api/users
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
         {

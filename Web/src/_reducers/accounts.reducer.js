@@ -1,13 +1,13 @@
-import { bookConstants } from '../_constants';
+import { accountConstants } from '../_constants';
 
-export function books(state = {}, action) {
+export function accounts(state = {}, action) {
   switch (action.type) {
-    case bookConstants.CREATE_REQUEST:
+    case accountConstants.CREATE_REQUEST:
       return {
         ...state,
         loading: true
       };
-    case bookConstants.CREATE_SUCCESS:
+    case accountConstants.CREATE_SUCCESS:
       if(state.items==null)
       {
         state.items=[];
@@ -16,50 +16,50 @@ export function books(state = {}, action) {
       return {
         items:state.items
       };
-    case bookConstants.CREATE_FAILURE:
+    case accountConstants.CREATE_FAILURE:
       return {
         error: action.error
       };
-    case bookConstants.GETBYOWNER_REQUEST:
+    case accountConstants.GETBYOWNER_REQUEST:
       return {
         loading: true
       };
-    case bookConstants.GETBYOWNER_SUCCESS:
+    case accountConstants.GETBYOWNER_SUCCESS:
       return {
         items: action.books
       };
-    case bookConstants.GETBYOWNER_FAILURE:
+    case accountConstants.GETBYOWNER_FAILURE:
       return {
         error: action.error
       };
-    case bookConstants.GETBYID_REQUEST:
+    case accountConstants.GETBYID_REQUEST:
       return {
         loading: true
       };
-    case bookConstants.GETBYID_SUCCESS:
+    case accountConstants.GETBYID_SUCCESS:
       return {
         userDetails: action.userDetails
       };
-    case bookConstants.GETBYID_FAILURE:
+    case accountConstants.GETBYID_FAILURE:
       return {
         error: action.error
       };
-    case bookConstants.UPDATE_REQUEST:
+    case accountConstants.UPDATE_REQUEST:
       return { ...state,
         updating: true };
-    case bookConstants.UPDATE_SUCCESS:
+    case accountConstants.UPDATE_SUCCESS:
       return {};
-    case bookConstants.UPDATE_FAILURE:
+    case accountConstants.UPDATE_FAILURE:
       return {};
-    case bookConstants.LOCKORUNLOCK_REQUEST:
+    case accountConstants.LOCKORUNLOCK_REQUEST:
       return { ...state,
         updating: true };
-    case bookConstants.LOCKORUNLOCK_SUCCESS:
+    case accountConstants.LOCKORUNLOCK_SUCCESS:
       return {...state};
-    case bookConstants.LOCKORUNLOCK_FAILURE:
+    case accountConstants.LOCKORUNLOCK_FAILURE:
       return {...state,
         updating: false};
-    case bookConstants.DELETE_REQUEST:
+    case accountConstants.DELETE_REQUEST:
       // add 'deleting:true' property to user being deleted
       return {
         ...state,
@@ -69,12 +69,12 @@ export function books(state = {}, action) {
             : user
         )
       };
-    case bookConstants.DELETE_SUCCESS:
+    case accountConstants.DELETE_SUCCESS:
       // remove deleted user from state
       return {
         items: state.items.filter(user => user.id !== action.id)
       };
-    case bookConstants.DELETE_FAILURE:
+    case accountConstants.DELETE_FAILURE:
       // remove 'deleting:true' property and add 'deleteError:[error]' property to user 
       return {
         ...state,

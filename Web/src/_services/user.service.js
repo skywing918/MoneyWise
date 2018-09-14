@@ -50,7 +50,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/account`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -59,7 +59,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/account/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
@@ -69,7 +69,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/accounts`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -79,7 +79,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/account/${user.id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);
 }
 
 function reset(id) {
@@ -88,7 +88,7 @@ function reset(id) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
-    return fetch(`${apiUrl}/account/reset/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users/reset/${id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -98,7 +98,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/account/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
