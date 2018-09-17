@@ -19,7 +19,7 @@ namespace MoneyWiseAPI.Controllers
         {
             var result = await MoneyWiseServices.Instance.GetAccountsByBookIdAsync(book);
 
-            var cardDics = result.GroupBy(x => x.Type).ToDictionary(x => x.Key, x => x);
+            var cardDics = result.OrderBy(x=>x.Type).GroupBy(x => x.Type).ToDictionary(x => x.Key, x => x);
 
             return cardDics.Select(x => new AccountsCenterViewModel { Name = x.Key.ToString(), Accounts = x.Value.Select(a => a.ToViewModel()) }).ToList();
         }
@@ -31,6 +31,13 @@ namespace MoneyWiseAPI.Controllers
             var curr = viewModel.ToModel();
             var result = await MoneyWiseServices.Instance.AddAccountAsync(curr);
             return result.ToViewModel();
+        }
+
+        // DELETE api/accounts/5
+        [HttpDelete("{id}")]
+        public async Task Delete(string id)
+        {
+            await MoneyWiseServices.Instance.DeleteAccountAsync(id);
         }
     }
 }

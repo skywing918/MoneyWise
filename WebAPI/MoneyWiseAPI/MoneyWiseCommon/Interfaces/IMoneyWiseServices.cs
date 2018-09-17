@@ -15,5 +15,6 @@ namespace MoneyWiseCommon.Interfaces
         Task DeleteBookAsync(string bookId);
         Task<IEnumerable<Account>> GetAccountsByBookIdAsync(string book);
         Task<Account> AddAccountAsync(Account curr);
+        Task DeleteAccountAsync(string id);
     }
 }

@@ -30,6 +30,7 @@ class Accounts extends Component {
         this.toggleNew = this.toggleNew.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +65,11 @@ class Accounts extends Component {
         if (account.name) {
             dispatch(accountActions.create(account));
         }
+    }
+
+    handleDelete(accountId) {
+        const { dispatch } = this.props;
+        dispatch(accountActions.delete(accountId));
     }
 
     render() {
@@ -141,7 +147,7 @@ class Accounts extends Component {
                             </CardHeader>
                             <CardBody >
                                 {accounts.items && accounts.items.map((cards, index) =>
-                                    <CardAccount cards={cards} key={index} />
+                                    <CardAccount cards={cards} key={index} delete={this.handleDelete} />
                                 )}
                             </CardBody>
                         </Card>

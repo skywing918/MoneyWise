@@ -5,6 +5,7 @@ namespace MoneyWiseAPI.ViewModels
 {
     public class BookAccountViewModel
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string BookId { get; set; }
         public AccountType Type { get; set; }
@@ -30,6 +31,7 @@ namespace MoneyWiseAPI.ViewModels
         {
             var model = new BookAccountViewModel
             {
+                Id = account.Id,
                 Name = account.Title,
                 Type = account.Type,
                 Price = 0,

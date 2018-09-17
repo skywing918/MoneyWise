@@ -22,8 +22,10 @@ const defaultProps = {
 
 function BookDropdownItem(props) {
   const book = props.book
+  const toggle = props.toggle
+  const selected = props.selected
   return (
-    <DropdownItem>
+    <DropdownItem className={classnames({ active: selected === book.id })} onClick={()=>toggle(book.id)}>
       <i className="icon-wallet text-success"></i> {book.name}
     </DropdownItem>)
 }
@@ -39,6 +41,7 @@ class DefaultHeaderDropdown extends Component {
     this.handleChangeRecord = this.handleChangeRecord.bind(this);
     this.handleSubmitRecord = this.handleSubmitRecord.bind(this);
     this.toggleNewBook = this.toggleNewBook.bind(this);
+    this.toggleSelectBook = this.toggleSelectBook.bind(this);
     this.handleChangeBook = this.handleChangeBook.bind(this);
     this.handleSubmitBook = this.handleSubmitBook.bind(this);
     this.state = {
@@ -52,6 +55,7 @@ class DefaultHeaderDropdown extends Component {
         comments: ''
       },
       createBook: false,
+      select:'',
       book: {
         name: '',
         comment: ''
@@ -114,6 +118,12 @@ class DefaultHeaderDropdown extends Component {
   toggleNewBook() {
     this.setState({
       createBook: !this.state.createBook,
+    });
+  }
+
+  toggleSelectBook(bookId) {
+    this.setState({
+      selected: bookId,
     });
   }
 
@@ -390,7 +400,7 @@ class DefaultHeaderDropdown extends Component {
           <DropdownMenu right>
             <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
             {books.items && books.items.map((book, index) =>
-              <BookDropdownItem key={index} book={book} />
+              <BookDropdownItem key={index} book={book} toggle={this.toggleSelectBook} selected={this.state.selected} />
             )}
             <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
           </DropdownMenu>

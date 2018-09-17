@@ -67,5 +67,10 @@ namespace MoneyWiseCommon
         {
             return await ServiceFactory.AccountsServicesInstance.AddAccountAsync(curr).ConfigureAwait(false);
         }
+
+        public async Task DeleteAccountAsync(string accountId)
+        {
+            await ServiceFactory.AccountsServicesInstance.DeleteAccountAsync(accountId).ConfigureAwait(false);
+        }
     }
 }

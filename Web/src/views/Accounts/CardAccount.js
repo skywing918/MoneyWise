@@ -20,6 +20,7 @@ function currencyFormater(price) {
 
 function AccountRow(props) {
   const account = props.account
+  const handleDelete = props.handleDelete
   const calloutClasses = classNames('callout', 'callout-' + getColor(account.price));
   const totalClasses = classNames('text-' + getColor(account.price));
 
@@ -38,7 +39,7 @@ function AccountRow(props) {
         <strong>{currencyFormater(account.price)}</strong>
       </td>
       <td >
-        <div className="accountMenu">修改 | 删除</div>
+        <div className="accountMenu">修改 | <button onClick={()=>handleDelete(account.id)}>删除</button></div>
       </td>
     </tr>
   )
@@ -47,13 +48,28 @@ function AccountRow(props) {
 class CardAccount extends Component {
   render() {
     const { cards } = this.props;
+    const handleDelete = this.props.delete;
     const accountList = cards.accounts;
     const totalClasses = classNames('text-' + getColor(cards.total));
+
+    let cardName = '';
+    switch (cards.name) {
+      case 'Cash':
+        cardName = '现金';
+        break;
+      case 'Saving':
+        cardName = '活期(卡折)';
+        break;
+      case 'CreditCard':
+        cardName = '信用卡';
+        break;
+    }
+
     return (
       <Table hover responsive className="table-outline mb-3 d-none d-sm-table">
         <thead className="thead-light">
           <tr>
-            <th style={{ width: 10 + '%' }}>{cards.name}</th>
+            <th style={{ width: 10 + '%' }}>{cardName}</th>
             <th style={{ width: 75 + '%' }}></th>
             <th className={totalClasses}>{currencyFormater(cards.total)}</th>
             <th style={{ width: 10 + '%' }}></th>
@@ -61,7 +77,7 @@ class CardAccount extends Component {
         </thead>
         <tbody>
           {accountList.map((account, index) =>
-            <AccountRow key={index} account={account} />
+            <AccountRow key={index} account={account} handleDelete={handleDelete} />
           )}
         </tbody>
       </Table>
