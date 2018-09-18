@@ -26,7 +26,7 @@ function BookDropdownItem(props) {
   const toggle = props.toggle
   const selected = props.selected
   return (
-    <DropdownItem className={classnames({ active: selected === book.id })} onClick={()=>toggle(book.id)}>
+    <DropdownItem className={classnames({ active: selected === book.id })} onClick={() => toggle(book.id)}>
       <i className="icon-wallet text-success"></i> {book.name}
     </DropdownItem>)
 }
@@ -56,7 +56,7 @@ class DefaultHeaderDropdown extends Component {
         comments: ''
       },
       createBook: false,
-      select:'',
+      select: '',
       book: {
         name: '',
         comment: ''
@@ -215,8 +215,8 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        {site.accounts&&site.accounts.map((account,index)=>
-                          <option value={account.value}>{account.name}</option>
+                        {site.accounts && site.accounts.map((account, index) =>
+                          <option value={account.value} key={index}>{account.name} </option>
                         )}
                       </Input>
                     </Col>
@@ -266,8 +266,8 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        {site.accounts&&site.accounts.map((account,index)=>
-                          <option value={account.value}>{account.name}</option>
+                        {site.accounts && site.accounts.map((account, index) =>
+                          <option value={account.value} key={index}>{account.name}</option>
                         )}
                       </Input>
                     </Col>
@@ -306,8 +306,8 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        {site.accounts&&site.accounts.map((account,index)=>
-                          <option value={account.value}>{account.name}</option>
+                        {site.accounts && site.accounts.map((account, index) =>
+                          <option value={account.value} key={index}>{account.name}</option>
                         )}
                       </Input>
                     </Col>
@@ -318,8 +318,8 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        {site.accounts&&site.accounts.map((account,index)=>
-                          <option value={account.value}>{account.name}</option>
+                        {site.accounts && site.accounts.map((account, index) =>
+                          <option value={account.value} key={index}>{account.name}</option>
                         )}
                       </Input>
                     </Col>
@@ -457,7 +457,7 @@ DefaultHeaderDropdown.propTypes = propTypes;
 DefaultHeaderDropdown.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-  const { books, authentication,site } = state;
+  const { books, authentication, site } = state;
   const { user } = authentication;
   return {
     user,
