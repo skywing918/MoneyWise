@@ -60,5 +60,14 @@ namespace MoneyWiseAPI.Controllers
         {
             await MoneyWiseServices.Instance.DeleteBookAsync(id);
         }
+
+        // GET api/books/5
+        [HttpGet("getrelated/{id}")]
+        public async Task<SiteViewModel> GetRelated(string id)
+        {
+            var accounts =  await MoneyWiseServices.Instance.GetAccountsByBookIdAsync(id);
+            var category = await MoneyWiseServices.Instance.GetCategoriesByBookIdAsync(id);
+            return SiteViewModelExtensions.ToViewModel(id, accounts, category);
+        }
     }
 }

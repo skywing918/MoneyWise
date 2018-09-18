@@ -1,5 +1,6 @@
 import { bookConstants } from '../_constants';
 import { bookService } from '../_services';
+import { siteActions } from './';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
@@ -40,9 +41,18 @@ function getByOwner(userName) {
 
         bookService.getByOwner(userName)
             .then(
+                books=>
+                {
+                    let defaultBook = books[3];
+                    dispatch(siteActions.changeBook(defaultBook.id));
+                    return books;
+                }
+            )
+            .then(
                 books => dispatch(success(books)),
                 error => dispatch(failure(error.toString()))
-            );
+            )
+            
     };
 
     function request() { return { type: bookConstants.GETBYOWNER_REQUEST } }

@@ -72,5 +72,10 @@ namespace MoneyWiseCommon
         {
             await ServiceFactory.AccountsServicesInstance.DeleteAccountAsync(accountId).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<Category>> GetCategoriesByBookIdAsync(string id)
+        {
+            return new List<Category>();
+        }
     }
 }

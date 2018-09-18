@@ -4,6 +4,7 @@ import { userActions } from '../_actions';
 export const bookService = {
     create,
     getByOwner,
+    getRelatedByBookId,
     update,
     delete: _delete
 };
@@ -17,7 +18,15 @@ function getByOwner(userId) {
     };
 
     return fetch(`${apiUrl}/books/getbyowner/${userId}`, requestOptions).then(handleResponse);
-        
+}
+
+function getRelatedByBookId(bookId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${apiUrl}/books/getrelated/${bookId}`, requestOptions).then(handleResponse);
 }
 
 function create(book) {

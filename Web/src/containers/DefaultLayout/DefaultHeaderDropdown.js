@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import { bookActions } from '../../_actions';
+import { siteActions } from '../../_actions';
 
 const propTypes = {
   booksdiv: PropTypes.bool,
@@ -122,9 +123,9 @@ class DefaultHeaderDropdown extends Component {
   }
 
   toggleSelectBook(bookId) {
-    this.setState({
-      selected: bookId,
-    });
+    const { dispatch } = this.props;
+    dispatch(siteActions.changeBook(bookId));
+    this.setState({ selected: bookId });
   }
 
   handleChangeBook(event) {
@@ -151,6 +152,7 @@ class DefaultHeaderDropdown extends Component {
   }
 
   pupUpNewRecord() {
+    const { site } = this.props;
     return (
       <div>
         <Button color="ghost-success p-0" size="sm" onClick={this.toggleNewRecord}>
@@ -213,8 +215,9 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        <option value="RMB">人民币</option>
-                        <option value="MB">美元</option>
+                        {site.accounts&&site.accounts.map((account,index)=>
+                          <option value={account.value}>{account.name}</option>
+                        )}
                       </Input>
                     </Col>
                   </FormGroup>
@@ -263,8 +266,9 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        <option value="RMB">人民币</option>
-                        <option value="MB">美元</option>
+                        {site.accounts&&site.accounts.map((account,index)=>
+                          <option value={account.value}>{account.name}</option>
+                        )}
                       </Input>
                     </Col>
                   </FormGroup>
@@ -302,8 +306,9 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        <option value="RMB">人民币</option>
-                        <option value="MB">美元</option>
+                        {site.accounts&&site.accounts.map((account,index)=>
+                          <option value={account.value}>{account.name}</option>
+                        )}
                       </Input>
                     </Col>
                   </FormGroup>
@@ -313,8 +318,9 @@ class DefaultHeaderDropdown extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" id="role" name="role" value={this.state.record.role} onChange={this.handleChangeRecord}>
-                        <option value="RMB">人民币</option>
-                        <option value="MB">美元</option>
+                        {site.accounts&&site.accounts.map((account,index)=>
+                          <option value={account.value}>{account.name}</option>
+                        )}
                       </Input>
                     </Col>
                   </FormGroup>
@@ -389,7 +395,7 @@ class DefaultHeaderDropdown extends Component {
   }
 
   dropBooks() {
-    const { books } = this.props;
+    const { books, site } = this.props;
     const itemsCount = books.items == null ? 0 : books.items.length;
     return (
       <div>
@@ -400,7 +406,7 @@ class DefaultHeaderDropdown extends Component {
           <DropdownMenu right>
             <DropdownItem header tag="div" className="text-center"><strong>You have {itemsCount} accounts</strong></DropdownItem>
             {books.items && books.items.map((book, index) =>
-              <BookDropdownItem key={index} book={book} toggle={this.toggleSelectBook} selected={this.state.selected} />
+              <BookDropdownItem key={index} book={book} toggle={this.toggleSelectBook} selected={site.bookid} />
             )}
             <DropdownItem className="text-center" onClick={this.toggleNewBook}><strong><i className="fa fa-plus fa-lg"></i>增加账本</strong></DropdownItem>
           </DropdownMenu>
@@ -451,10 +457,11 @@ DefaultHeaderDropdown.propTypes = propTypes;
 DefaultHeaderDropdown.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-  const { books, authentication } = state;
+  const { books, authentication,site } = state;
   const { user } = authentication;
   return {
     user,
+    site,
     books
   };
 }

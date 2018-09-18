@@ -34,7 +34,13 @@ class Accounts extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(accountActions.getAllByBookId('5b9b50e55f36930bd41a254b'));
+        this.props.dispatch(accountActions.getAllByBookId(this.props.site.bookid));
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.site.bookid !== prevProps.site.bookid) {
+            this.props.dispatch(accountActions.getAllByBookId(this.props.site.bookid));
+        }
     }
 
     toggleNew() {
@@ -59,9 +65,9 @@ class Accounts extends Component {
 
         this.setState({ create: !this.state.create });
         const { account } = this.state;
-        const { dispatch, user } = this.props;
+        const { dispatch, user, site } = this.props;
         account.CreatedBy = user.unique_name;
-        account.BookId = '5b9b50e55f36930bd41a254b';
+        account.BookId = site.bookid;
         if (account.name) {
             dispatch(accountActions.create(account));
         }
@@ -159,11 +165,12 @@ class Accounts extends Component {
 }
 
 function mapStateToProps(state) {
-    const { books, authentication,accounts } = state;
+    const { books, authentication,accounts,site } = state;
     const { user } = authentication;
     return {
       user,
       books,
+      site,
       accounts
     };
   }
