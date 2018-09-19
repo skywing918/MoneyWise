@@ -21,6 +21,7 @@ function currencyFormater(price) {
 function AccountRow(props) {
   const account = props.account
   const handleDelete = props.handleDelete
+  const cardUrl = props.cardUrl
   const calloutClasses = classNames('callout', 'callout-' + getColor(account.price));
   const totalClasses = classNames('text-' + getColor(account.price));
 
@@ -29,7 +30,7 @@ function AccountRow(props) {
       <td ></td>
       <td className="p-0">
         <div className={calloutClasses}>
-          <div>{account.name}</div>
+          <div><a href={cardUrl}>{account.name}</a></div>
           <div className="small text-muted">
             <span>人民币</span> | {account.owner}
           </div>
@@ -53,15 +54,23 @@ class CardAccount extends Component {
     const totalClasses = classNames('text-' + getColor(cards.total));
 
     let cardName = '';
+    let cardUrl='';
     switch (cards.name) {
       case 'Cash':
         cardName = '现金';
+        cardUrl='/Cash';
         break;
       case 'Saving':
         cardName = '活期(卡折)';
+        cardUrl='/Saving';
         break;
       case 'CreditCard':
         cardName = '信用卡';
+        cardUrl='/CreditCard';
+        break;
+      case 'Investment':
+        cardName = '投资';
+        cardUrl='/Lending';
         break;
     }
 
@@ -77,7 +86,7 @@ class CardAccount extends Component {
         </thead>
         <tbody>
           {accountList.map((account, index) =>
-            <AccountRow key={index} account={account} handleDelete={handleDelete} />
+            <AccountRow key={index} account={account} handleDelete={handleDelete} cardUrl={cardUrl} />
           )}
         </tbody>
       </Table>

@@ -42,6 +42,11 @@ const Records = Loadable({
   loading: Loading,
 });
 
+const Lendings = Loadable({
+  loader: () => import('./views/Details/Lending'),
+  loading: Loading,
+});
+
 const Investments = Loadable({
   loader: () => import('./views/Investments/Investments'),
   loading: Loading,
@@ -60,6 +65,7 @@ const routes = [
     
   { path: '/accounts', name: '账户中心', component: Accounts },
   { path: '/records', name: '财务记录', component: Records },
+  { path: '/lending', name: '网贷', component: Lendings },
   { path: '/investments', name: '投资一览', component: Investments },
 ];
 
