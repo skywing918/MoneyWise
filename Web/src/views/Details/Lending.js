@@ -59,27 +59,39 @@ class Lending extends Component {
             },
             {
                 dataField: 'income',
-                text: '预期年华收益'
+                text: '预期年华收益',
+                headerAlign: 'right',
+                align: 'right'
             },
             {
                 dataField: 'outgo',
-                text: '实际盈亏'
+                text: '实际盈亏',
+                headerAlign: 'right',
+                align: 'right'
             },
             {
                 dataField: '',
-                text: '待收利息'
+                text: '待收利息',
+                headerAlign: 'right',
+                align: 'right'
             },
             {
                 dataField: '',
                 text: '待收本金',
+                headerAlign: 'right',
+                align: 'right'
             },
             {
                 dataField: '',
                 text: '可用资金',
+                headerAlign: 'right',
+                align: 'right'
             },
             {
                 dataField: '',
                 text: '资产值',
+                headerAlign: 'right',
+                align: 'right'
             }
         ];
         const selectRow = {
@@ -110,14 +122,14 @@ class Lending extends Component {
                                     </Dropdown>
                                 </div>
                             </CardHeader>
-                            <CardBody>
-                                <div className="chart-wrapper" style={{ marginTop: 20 + 'px' }}>
-                                    {logList &&
-                                        <BootstrapTable keyField='id' data={logList} columns={columns} selectRow={selectRow} />
-                                    }
-                                </div>
+                            <CardBody className="p-0">
+                                {logList &&
+                                    <BootstrapTable keyField='id' data={logList} columns={columns} selectRow={selectRow} striped
+                                    hover
+                                    condensed/>
+                                }
                             </CardBody>
-                            <CardFooter>
+                            <CardFooter className="p-0">
                                 <Row className="text-center">
                                     <Col sm={12} md className="mb-sm-2 mb-0">
                                         <div className="text-muted">流出：<strong className="text-success">100,000.00</strong></div>
@@ -164,20 +176,20 @@ class Lending extends Component {
                         <TabContent activeTab={this.state.activeTab}>
                             <TabPane tabId="1">
                                 <Row>
-                                <div className="card-header-actions">
-                                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm">
-                                        <DropdownToggle caret>
-                                            操作
+                                    <div className="card-header-actions">
+                                        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm">
+                                            <DropdownToggle caret>
+                                                操作
                                         </DropdownToggle>
-                                        <DropdownMenu>
-                                            <DropdownItem header>Header</DropdownItem>
-                                            <DropdownItem disabled>Action</DropdownItem>
-                                            <DropdownItem>Another Action</DropdownItem>
-                                            <DropdownItem divider />
-                                            <DropdownItem>Another Action</DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
-                                </div>
+                                            <DropdownMenu>
+                                                <DropdownItem header>Header</DropdownItem>
+                                                <DropdownItem disabled>Action</DropdownItem>
+                                                <DropdownItem>Another Action</DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>Another Action</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </div>
                                 </Row>
                                 <Row>
                                     {logList &&
