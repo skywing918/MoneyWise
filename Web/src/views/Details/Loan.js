@@ -15,7 +15,7 @@ function accountFormatter(cell, row) {
     );
 }
 
-class Lending extends Component {
+class Loan extends Component {
     constructor(props) {
         super(props);
 
@@ -336,4 +336,4 @@ class Lending extends Component {
     }
 }
 
-export default Lending;
+export default Loan;

@@ -114,7 +114,7 @@ class Records extends Component {
                   </Col>
                 </Row>
                 
-                <div className="chart-wrapper" style={{  marginTop: 20 + 'px' }}>
+                <div className="chart-wrapper" style={{  marginTop: 20 + 'px',height:435+'px',overflow:'auto' }}>
                 {logList &&
                     <BootstrapTable keyField='id' data={logList} columns={columns}/>
                 }
