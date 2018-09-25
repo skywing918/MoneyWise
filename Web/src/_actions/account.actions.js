@@ -6,6 +6,7 @@ import { history } from '../_helpers';
 export const accountActions = {
     create,
     getAllByBookId,
+    getAllByTypeInBook,
     getById,
     update,
     delete: _delete
@@ -38,6 +39,22 @@ function getAllByBookId(bookId) {
         dispatch(request());
 
         accountService.getAllByBookId(bookId)
+            .then(
+                accounts => dispatch(success(accounts)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: accountConstants.GETALL_REQUEST } }
+    function success(accounts) { return { type: accountConstants.GETALL_SUCCESS, accounts } }
+    function failure(error) { return { type: accountConstants.GETALL_FAILURE, error } }
+}
+
+function getAllByTypeInBook(bookId, type) {
+    return dispatch => {
+        dispatch(request());
+
+        accountService.getAllByTypeInBook(bookId, type)
             .then(
                 accounts => dispatch(success(accounts)),
                 error => dispatch(failure(error.toString()))

@@ -5,6 +5,9 @@ import logsData from './LogsData'
 import BootstrapTable from 'react-bootstrap-table-next';
 import classnames from 'classnames';
 
+import { accountActions } from '../../_actions';
+import { connect } from 'react-redux';
+
 function accountFormatter(cell, row) {
     let baseAccount = row.incomeAccount || row.outgoAccount;
     if (row.incomeAccount && row.outgoAccount) {
@@ -30,6 +33,18 @@ class Loan extends Component {
         };
     }
 
+    componentDidMount() {
+        if(this.props.site.bookid) {
+            this.props.dispatch(accountActions.getAllByTypeInBook(this.props.site.bookid,5));
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.site.bookid !== prevProps.site.bookid) {
+            this.props.dispatch(accountActions.getAllByTypeInBook(this.props.site.bookid,5));
+        }
+    }
+
     toggle() {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen,
@@ -51,10 +66,11 @@ class Loan extends Component {
     }
 
     render() {
+        const { accounts } = this.props;
         const logList = logsData;//.filter((log) => log.id < 7)
         const listColumns = [
             {
-                dataField: 'name',
+                dataField: 'title',
                 text: '账户名称',
                 headerStyle: {
                     fontSize: '12px'
@@ -219,7 +235,7 @@ class Loan extends Component {
                     <Col>
                         <Card>
                             <CardHeader>
-                                网贷
+                                债权
                                 <div className="card-header-actions">
                                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm">
                                         <DropdownToggle caret>
@@ -236,12 +252,11 @@ class Loan extends Component {
                                 </div>
                             </CardHeader>
                             <CardBody className="p-0">
-                                {logList &&
-                                    <BootstrapTable keyField='id' data={logList} columns={listColumns} selectRow={selectRow} striped
+                            {accounts.items && <BootstrapTable keyField='id' data={accounts.items} columns={listColumns} selectRow={selectRow} striped
                                     hover
                                     condensed
                                     bordered={ false }/>
-                                }
+                            }
                             </CardBody>
                             <CardFooter className="p-0">
                                 <Row className="text-center">
@@ -335,5 +350,16 @@ class Loan extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    const { books, authentication,accounts,site } = state;
+    const { user } = authentication;
+    return {
+      user,
+      books,
+      site,
+      accounts
+    };
+  }
 
-export default Loan;
+export default connect(mapStateToProps)(Loan);
+

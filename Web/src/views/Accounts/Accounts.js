@@ -34,7 +34,9 @@ class Accounts extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(accountActions.getAllByBookId(this.props.site.bookid));
+        if(this.props.site.bookid) {
+            this.props.dispatch(accountActions.getAllByBookId(this.props.site.bookid));
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -112,6 +114,7 @@ class Accounts extends Component {
                                                             <option value="2">活期(卡折)</option>
                                                             <option value="3">信用卡</option>
                                                             <option value="4">投资</option>
+                                                            <option value="5">债务</option>
                                                         </Input>
                                                     </Col>
                                                 </FormGroup>

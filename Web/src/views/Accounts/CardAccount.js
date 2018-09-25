@@ -15,6 +15,7 @@ function getColor(total) {
 }
 
 function currencyFormater(price) {
+  price = price||0;
   return price.toFixed(2).toLocaleString();
 }
 
@@ -71,6 +72,10 @@ class CardAccount extends Component {
       case 'Investment':
         cardName = '投资';
         cardUrl='/Lending';
+        break;
+      case 'Loan':
+        cardName = '债务';
+        cardUrl='/Loan';
         break;
     }
 

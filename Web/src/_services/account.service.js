@@ -4,6 +4,7 @@ import { userActions } from '../_actions';
 export const accountService = {
     create,
     getAllByBookId,
+    getAllByTypeInBook,
     update,
     delete: _delete
 };
@@ -18,6 +19,15 @@ function getAllByBookId(bookId) {
 
     return fetch(`${apiUrl}/accounts/getbybook/${bookId}`, requestOptions).then(handleResponse);
         
+}
+
+function getAllByTypeInBook(bookId, type) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${apiUrl}/accounts/getbytypeinbook/${bookId}/${type}`, requestOptions).then(handleResponse);
 }
 
 function create(account) {
