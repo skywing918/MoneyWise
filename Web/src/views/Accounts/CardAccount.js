@@ -15,7 +15,7 @@ function getColor(total) {
 }
 
 function currencyFormater(price) {
-  price = price||0;
+  price = price || 0;
   return price.toFixed(2).toLocaleString();
 }
 
@@ -41,7 +41,7 @@ function AccountRow(props) {
         <strong>{currencyFormater(account.price)}</strong>
       </td>
       <td >
-        <div className="accountMenu">修改 | <button onClick={()=>handleDelete(account.id)}>删除</button></div>
+        <div className="accountMenu">修改 | <button onClick={() => handleDelete(account.id)}>删除</button></div>
       </td>
     </tr>
   )
@@ -55,27 +55,27 @@ class CardAccount extends Component {
     const totalClasses = classNames('text-' + getColor(cards.total));
 
     let cardName = '';
-    let cardUrl='';
+    let cardUrl = '';
     switch (cards.name) {
       case 'Cash':
         cardName = '现金';
-        cardUrl='/Cash';
+        cardUrl = '/Cash';
         break;
       case 'Saving':
         cardName = '活期(卡折)';
-        cardUrl='/Saving';
+        cardUrl = '/Saving';
         break;
       case 'CreditCard':
         cardName = '信用卡';
-        cardUrl='/CreditCard';
+        cardUrl = '/CreditCard';
         break;
       case 'Investment':
         cardName = '投资';
-        cardUrl='/Lending';
+        cardUrl = '/Lending';
         break;
       case 'Loan':
         cardName = '债务';
-        cardUrl='/Loan';
+        cardUrl = '/Loan';
         break;
     }
 
@@ -90,7 +90,7 @@ class CardAccount extends Component {
           </tr>
         </thead>
         <tbody>
-          {accountList.map((account, index) =>
+          {accountList && accountList.map((account, index) =>
             <AccountRow key={index} account={account} handleDelete={handleDelete} cardUrl={cardUrl} />
           )}
         </tbody>
